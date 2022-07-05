@@ -22,8 +22,8 @@ __all__ = ("Matrix",)
 
 class Matrix:
     """
-    Expresses the mathematical notion of a matrix in **R**^2 in native
-        Python datastructures and datatypes while providing an
+    Expresses the mathematical notion of a rational-valued matrix in
+        native Python datastructures and datatypes while providing an
         assortment of tools to perform basic matrix manipulations.
 
     `Matrix` objects are considered non-mutable, which means that for

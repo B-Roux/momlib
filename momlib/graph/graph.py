@@ -17,7 +17,13 @@ __all__ = ("Graph",)
 
 class Graph:
     """
-    This is a placeholder.
+    Expresses the mathematical notion of an undirected, optionally
+        weighted graph in native Python datastructures and datatypes
+        while providing an assortment of tools to perform basic graph
+        manipulations.
+
+    `Graph` objects are considered mutable, which means they can be
+        modified and should not be used as dictionary keys or set items.
     """
 
     __slots__ = ("_edge_data", "_length")
@@ -28,7 +34,21 @@ class Graph:
         edges: Optional[Iterable[Iterable[float | Fraction | None]]] = None,
     ) -> None:
         """
-        This is a placeholder.
+        Initializes a new instance of the `Graph` class.
+
+        Arguments
+        - node_count: The number of nodes to initialize the graph with.
+        - edges: The edge data to initialize the graph with - an
+            iterable that must produce a lower triangular matrix such
+            that each entry describes a connection between the nodes
+            that correspond to its coordinates.
+            Using this parameter is not recommended, instead, consider
+            using the `set_neighbors` or `set_edge` function.
+            Optional, defaults to none.
+
+        Possible Errors
+        - ValueError: If `edges` produces a malformed lower triangular
+            matrix.
         """
         edge_data: list[list[Fraction | None]] | None = None
         if edges is not None:
@@ -54,7 +74,7 @@ class Graph:
         self,
     ) -> int:
         """
-        This is a placeholder.
+        Returns the total number of nodes in this graph.
         """
         return self._length
 
@@ -62,7 +82,7 @@ class Graph:
         self,
     ) -> str:
         """
-        This is a placeholder.
+        Returns a "pretty" string representation of this graph.
         """
         graph_string_builder: list[str | None] = [
             None for _ in range(self._length)
@@ -108,7 +128,12 @@ class Graph:
         self,
     ) -> str:
         """
-        This is a placeholder.
+        Returns a reproduction string representation of this graph.
+
+        Notes
+        - Assuming all relevant libraries have been imported, the
+            reproduction string can be run as valid Python to create
+            an exact copy of this graph.
         """
         obj_name = self.__class__.__name__
         node_count = self._length
@@ -132,7 +157,17 @@ class Graph:
         ] = None,
     ) -> int:
         """
-        This is a placeholder.
+        Creates a new node in this graph, and returns its index for
+            convenience.
+
+        Arguments
+        - neighbors: An iterable of node indices or index-weight tuples
+            that will be used to initialize the new node's neighbors.
+            Optional, defaults to none.
+
+        Notes
+        - Specifying the neighbors parameter is equivalent to leaving it
+            blank and calling the `set_neighbors` method manually.
         """
         new_node_index = self._length
         self._length += 1
@@ -147,7 +182,18 @@ class Graph:
         neighbor: int,
     ) -> Fraction | None:
         """
-        This is a placeholder.
+        Gets the value of an edge between two nodes.
+
+        Arguments
+        - node: The parent node of the edge.
+        - neighbor: The child node of the edge.
+
+        Possible Errors
+        - NodeNotFoundError: If a specified node index does not exist.
+
+        Notes
+        - Since undirected edges have no directionality, the order of
+            the operands does not matter.
         """
         try:
             if node > neighbor:
@@ -164,7 +210,11 @@ class Graph:
         node: int,
     ) -> Iterable[tuple[int, Fraction]]:
         """
-        This is a placeholder.
+        Generate neighbor index-weight tuples for each edge this node
+            shares with a neighbor node.
+
+        Arguments
+        - node: The node for which to find neighbor nodes.
         """
         for i in range(self._length):
             weight = self.get_edge(node, i)
@@ -178,7 +228,23 @@ class Graph:
         weight: float | Fraction | None = Fraction(1),
     ) -> None:
         """
-        This is a placeholder.
+        Set the value of an edge by overwriting its old value.
+
+        Arguments
+        - node: The source node for the edge.
+        - neighbor: The destination node for the edge.
+        - weight: The weight of the edge.
+            Optional, defaults to `None`.
+
+        Possible Errors
+        - NodeNotFoundError: If a specified node index does not exist.
+
+        Notes
+        - A weight of 0 does not imply a non-connection, it simply means
+            a connection with weight 0. To explicitly specify a
+            non-connection, use a weight of `None`.
+        - Since undirected edges have no directionality, the order of
+            the node index operands does not matter.
         """
         try:
             if node > neighbor:
@@ -202,7 +268,16 @@ class Graph:
         neighbors: Iterable[int | tuple[int, float | Fraction | None]],
     ) -> None:
         """
-        This is a placeholder.
+        Set edges based on indices or index-weight tuples for each edge
+            this node shares with a neighbor node.
+
+        Arguments
+        - node: The node for which to set neighbor nodes.
+
+        Notes
+        - A weight of 0 does not imply a non-connection, it simply means
+            a connection with weight 0. To explicitly specify a non-
+            connection, use a weight of `None`.
         """
         for neighbor in neighbors:
             if isinstance(neighbor, int):
@@ -215,7 +290,17 @@ class Graph:
         node: int,
     ) -> Fraction:
         """
-        This is a placeholder.
+        Calculates the degree of a node in this graph, where degree
+            refers to the combined weight of all edges adjacent to the
+            node.
+
+        Arguments
+        - node: The node for which to find the degree.
+
+        Notes
+        - For 'loop edges' (edges that start and end at the same node),
+            the degree is counted twice. This is not a bug, it has to
+            do with the definition of degree in an undirected graph.
         """
         return sum(
             chain(
