@@ -127,7 +127,7 @@ class Vector:
         """
         Returns a "pretty" string representation of this vector.
         """
-        return self._pretty_string(
+        return self._string_format(
             10,
             lambda f: (
                 "%.3g" % (f.numerator if f.denominator == 1 else float(f))
@@ -511,7 +511,7 @@ class Vector:
             else:
                 return Vector(operation(other, item) for item in self._data)
 
-    def _pretty_string(
+    def _string_format(
         self,
         max_elements: int,
         element_formatter: Callable[[Fraction], str],

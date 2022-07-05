@@ -52,15 +52,19 @@ class Matrix:
         - ValueError: If the initializer has no elements, or if the
             initializer is jagged (not rectangular).
         """
+        # Capture the data - necessary because the initializer could be
+        # mutable, or a generator.
         data = tuple(
             tuple(Fraction(item) for item in row) for row in initializer
         )
+        # Check the data shape
         if len(data) <= 0 or len(data[0]) <= 0:
             raise ValueError("matrices must have at least one element")
         num_of_cols = len(data[0])
         for row in data:
             if len(row) != num_of_cols:
                 raise ValueError("matrices must be rectangular (not jagged)")
+        # Set instance variables
         self._data: Final[tuple[tuple[Fraction, ...], ...]] = data
         self._shape: Final[tuple[int, int]] = (len(data), num_of_cols)
         self._hash: int | None = None
@@ -135,7 +139,7 @@ class Matrix:
         """
         Returns a "pretty" string representation of this matrix.
         """
-        return self._pretty_string(
+        return self._string_format(
             10,
             10,
             lambda f: (
@@ -629,7 +633,7 @@ class Matrix:
                     for row in self._data
                 )
 
-    def _pretty_string(
+    def _string_format(
         self,
         max_rows: int,
         max_cols: int,
