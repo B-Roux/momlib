@@ -80,11 +80,13 @@ class Vector:
         Possible Errors
         - IndexError: If the key index is out of bounds.
         """
-        if not 0 <= key < self._length:
+        try:
+            return self._data[key]
+        except IndexError:
             raise IndexError(
-                f"index out of bounds, max {len(self)-1}, but given {key}"
+                f"index out of bounds, expected index in "
+                f"[0, {self._length}) but received {key}"
             )
-        return self._data[key]
 
     def __iter__(
         self,
@@ -112,7 +114,7 @@ class Vector:
         """
         if self._iter_index is None:
             raise RuntimeError("iterator not initialized")
-        if self._iter_index >= len(self):
+        if self._iter_index >= self._length:
             self._iter_index = None
             raise StopIteration
         result = self._data[self._iter_index]
@@ -162,10 +164,10 @@ class Vector:
         - To calculate the element-wise product of two vectors, use the
             `__mul__` (asterisk) operator.
         """
-        if len(self) != len(other):
+        if self._length != other._length:
             raise DimensionMismatchError(
-                f"left side length ({len(self)}) "
-                f"does not match right side length ({len(other)})"
+                f"left side length ({self._length}) "
+                f"does not match right side length ({other._length})"
             )
         return sum(
             (
@@ -354,8 +356,8 @@ class Vector:
         if self._hash is not None and other._hash is not None:
             if hash(self) != hash(other):
                 return False
-        length = len(self)
-        if length != len(other):
+        length = self._length
+        if length != other._length:
             return False
         for i in range(length):
             if self[i] != other[i]:
@@ -414,9 +416,9 @@ class Vector:
         items = (
             0 if isinstance(items[0], EllipsisType) else max(items[0], 0),
             (
-                len(self)
+                self._length
                 if isinstance(items[1], EllipsisType)
-                else min(items[1], len(self))
+                else min(items[1], self._length)
             ),
         )
         if items[0] >= items[1]:
@@ -485,13 +487,13 @@ class Vector:
         - This is a private method not meant to be exposed.
         """
         if isinstance(other, Vector):
-            if len(self) != len(other):
+            if self._length != other._length:
                 order = (
                     ("left", "right") if self_side_left else ("right", "left")
                 )
                 raise DimensionMismatchError(
-                    f"{order[0]} side length {len(self)} "
-                    f"does not equal {order[1]} side length {len(other)}"
+                    f"{order[0]} side length {self._length} "
+                    f"does not equal {order[1]} side length {other._length}"
                 )
             if self_side_left:
                 return Vector(
@@ -538,8 +540,8 @@ class Vector:
             + ", ".join(
                 (
                     format_as_str(self[element], element)
-                    for element in range(min(len(self), max_elements + 1))
+                    for element in range(min(self._length, max_elements + 1))
                 )
             )
-            + f" \u27E9 (size: {len(self)})"
+            + f" \u27E9 (size: {self._length})"
         )

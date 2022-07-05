@@ -24,8 +24,6 @@ class TestVector(unittest.TestCase):
         item = None
         with self.assertRaises(IndexError):
             item = vec[5]
-        with self.assertRaises(IndexError):
-            item = vec[-1]
         item = vec[3]
         self.assertEqual(item, vec[3])
 

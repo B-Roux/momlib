@@ -38,6 +38,7 @@
         "matcat",
         "momlib",
         "monospace",
+        "orthogonalize",
         "outdegree"
     ]
 }

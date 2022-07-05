@@ -72,7 +72,7 @@ class Matrix:
         """
         Returns the total number of elements in this matrix.
         """
-        return self.shape[0] * self.shape[1]
+        return self._shape[0] * self._shape[1]
 
     def __getitem__(
         self,
@@ -88,17 +88,14 @@ class Matrix:
         Possible Errors
         - IndexError: If the row or column index is out of bounds.
         """
-        if not 0 <= key[0] < self.shape[0]:
+        try:
+            return self._data[key[0]][key[1]]
+        except IndexError:
             raise IndexError(
-                "rows index out of bounds, "
-                f"max {self.shape[0]-1}, but given {key[0]}"
+                f"index out of bounds, expected index in "
+                f"([0, {self._shape[0]}), [0, {self._shape[0]})) but "
+                f"received ({key[0]}, {key[1]})"
             )
-        if not 0 <= key[1] < self.shape[1]:
-            raise IndexError(
-                "columns index out of bounds, "
-                f"max {self.shape[1]-1}, but given {key[1]}"
-            )
-        return self._data[key[0]][key[1]]
 
     def __iter__(
         self,
@@ -124,8 +121,8 @@ class Matrix:
         - Raises `StopIteration` when all rows have been iterated over.
         """
         if self._iter_index is None:
-            raise RuntimeError("iterator not initialized")
-        if self._iter_index >= self.shape[0]:
+            raise RuntimeError("iterator not initialized (use 'iter')")
+        if self._iter_index >= self._shape[0]:
             self._iter_index = None
             raise StopIteration
         result = self._data[self._iter_index]
@@ -180,20 +177,20 @@ class Matrix:
         - DimensionMismatchError: If the column count of `self` does not
             match the row count of `other`.
         """
-        inner_dim = self.shape[1]
-        if inner_dim != other.shape[0]:
+        inner_dim = self._shape[1]
+        if inner_dim != other._shape[0]:
             raise DimensionMismatchError(
-                f"left side columns ({self.shape[1]}) "
-                f"do not equal right side rows ({other.shape[0]}), "
+                f"left side columns ({self._shape[1]}) "
+                f"do not equal right side rows ({other._shape[0]}), "
                 "did you mean to find the Hadamard (element-wise) product "
                 "instead? ('*' operator)"
             )
         return Matrix(
             (
                 sum((self[row, i] * other[i, col] for i in range(inner_dim)))
-                for col in range(other.shape[1])
+                for col in range(other._shape[1])
             )
-            for row in range(self.shape[0])
+            for row in range(self._shape[0])
         )
 
     def __mul__(
@@ -375,10 +372,10 @@ class Matrix:
         if self._hash is not None and other._hash is not None:
             if hash(self) != hash(other):
                 return False
-        if self.shape != other.shape:
+        if self._shape != other._shape:
             return False
-        for row in range(self.shape[0]):
-            for col in range(self.shape[1]):
+        for row in range(self._shape[0]):
+            for col in range(self._shape[1]):
                 if self[row, col] != other[row, col]:
                     return False
         return True
@@ -423,16 +420,17 @@ class Matrix:
         - other: The right-hand side rows to append.
         - horizontally: Whether to concatenate the matrices horizontally
             (when true) or vertically (when false).
+            Optional, defaults to true.
 
         Possible Errors
         - DimensionMismatchError: If the two matrices have unequal shape
             dimensions perpendicular to the direction of concatenation.
         """
         if horizontally:
-            if self.shape[0] != other.shape[0]:
+            if self._shape[0] != other._shape[0]:
                 raise DimensionMismatchError(
-                    f"left side rows ({self.shape[0]}) "
-                    f"do not equal right side rows ({other.shape[0]}), "
+                    f"left side rows ({self._shape[0]}) "
+                    f"do not equal right side rows ({other._shape[0]}), "
                     "cannot augment columns"
                 )
             return Matrix(
@@ -442,10 +440,10 @@ class Matrix:
                 )
             )
         else:
-            if self.shape[1] != other.shape[1]:
+            if self._shape[1] != other._shape[1]:
                 raise DimensionMismatchError(
-                    f"top side columns ({self.shape[0]}) "
-                    f"do not equal bottom side columns ({other.shape[0]}), "
+                    f"top side columns ({self._shape[0]}) "
+                    f"do not equal bottom side columns ({other._shape[0]}), "
                     "cannot append rows"
                 )
             return Matrix(chain(self._data, other._data))
@@ -484,27 +482,27 @@ class Matrix:
             elements.
         """
         if isinstance(rows, EllipsisType):
-            rows = (0, self.shape[0])
+            rows = (0, self._shape[0])
         elif isinstance(rows, int):
             rows = (rows, rows + 1)
         if isinstance(cols, EllipsisType):
-            cols = (0, self.shape[1])
+            cols = (0, self._shape[1])
         elif isinstance(cols, int):
             cols = (cols, cols + 1)
         rows = (
             0 if isinstance(rows[0], EllipsisType) else max(rows[0], 0),
             (
-                self.shape[0]
+                self._shape[0]
                 if isinstance(rows[1], EllipsisType)
-                else min(rows[1], self.shape[0])
+                else min(rows[1], self._shape[0])
             ),
         )
         cols = (
             0 if isinstance(cols[0], EllipsisType) else max(cols[0], 0),
             (
-                self.shape[1]
+                self._shape[1]
                 if isinstance(cols[1], EllipsisType)
-                else min(cols[1], self.shape[1])
+                else min(cols[1], self._shape[1])
             ),
         )
         if rows[0] >= rows[1] or cols[0] >= cols[1]:
@@ -594,13 +592,13 @@ class Matrix:
         - This is a private method not meant to be exposed.
         """
         if isinstance(other, Matrix):
-            if self.shape != other.shape:
+            if self._shape != other._shape:
                 order = (
                     ("left", "right") if self_side_left else ("right", "left")
                 )
                 raise DimensionMismatchError(
-                    f"{order[0]} side shape {self.shape} "
-                    f"does not equal {order[1]} side shape {other.shape}"
+                    f"{order[0]} side shape {self._shape} "
+                    f"does not equal {order[1]} side shape {other._shape}"
                 )
             if self_side_left:
                 return Matrix(
@@ -664,9 +662,9 @@ class Matrix:
         element_strs = [
             [
                 format_to_str(self[row, col], row, col)
-                for col in range(min(self.shape[1], max_cols + 1))
+                for col in range(min(self._shape[1], max_cols + 1))
             ]
-            for row in range(min(self.shape[0], max_rows + 1))
+            for row in range(min(self._shape[0], max_rows + 1))
         ]
         column_lengths = [
             max(
@@ -690,6 +688,6 @@ class Matrix:
         return (
             f"\u250C{space}\u2510\n"
             f"\u2502 {dat_str} \u2502"
-            f" (size: {self.shape[0]}\u00D7{self.shape[1]})\n"
+            f" (size: {self._shape[0]}\u00D7{self._shape[1]})\n"
             f"\u2514{space}\u2518"
         )
