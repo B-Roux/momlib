@@ -1,0 +1,3 @@
+Check Matrix and Vector (also linalg tools, kind of):
+    - Replace explicit if/then/exception checks with try/catch where possible
+    - Try to remove instance methods where convenient - replace with property lookups

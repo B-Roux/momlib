@@ -1,0 +1,43 @@
+{
+    "files.exclude": {
+        "**/__pycache__": true
+    },
+
+    "editor.rulers": [
+        72,
+        79
+    ],
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false,
+    "editor.renderControlCharacters": true,
+    "python.analysis.typeCheckingMode": "strict",
+    "python.formatting.provider": "black",
+    "python.formatting.blackArgs": [
+        "--line-length=79"
+    ],
+    "[python]": {
+        "editor.formatOnSave": true
+    },
+
+    "python.testing.pytestEnabled": false,
+    "python.testing.unittestEnabled": true,
+    "python.testing.unittestArgs": [
+        "-v",
+        "-s",
+        "./tests",
+        "-p",
+        "test_*.py"
+    ],
+    "cSpell.words": [
+        "docstr",
+        "elwise",
+        "Hadamard",
+        "indegree",
+        "linalg",
+        "matcat",
+        "momlib",
+        "monospace",
+        "outdegree"
+    ]
+}
