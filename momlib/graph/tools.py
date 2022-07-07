@@ -17,45 +17,54 @@ __all__ = ("shortest_paths",)
 def shortest_paths(
     graph: Graph | DiGraph,
     source: int,
-) -> tuple[list[float], list[int | None]]:
-    def weight_to_float(x: Fraction | None) -> float:
-        if x is None:
-            return float("inf")
-        elif x >= Fraction(0):
-            return float(x)
-        else:
-            raise NegativeWeightError(
-                "negative weight detected, cannot proceed"
-            )
+) -> tuple[list[Fraction | None], list[int | None]]:
 
-    distance: list[float] = [float("inf")] * len(graph)
+    distance: list[Fraction | None] = [None] * len(graph)
     previous: list[int | None] = [None] * len(graph)
-    queue: list[tuple[int, float]] = []
+    queue: list[tuple[int, Fraction | None]] = []
 
-    distance[source] = 0
-    queue.append((source, 0))
+    def join_weights(
+        parent: Fraction | None, child: Fraction | None
+    ) -> Fraction | None:
+        if parent is None or child is None:
+            return None
+        elif parent < 0 or child < 0:
+            raise NegativeWeightError(
+                "cannot compute the shortest path of a graph with negative"
+                "weights"
+            )
+        else:
+            return parent + child
+
+    distance[source] = Fraction(0)
+    queue.append((source, Fraction(0)))
 
     for node in range(len(graph)):
-        if node != source:
-            distance[node] = float("inf")
-            previous[node] = None
         queue.append((node, distance[node]))
 
     while len(queue) > 0:
-        idx, parent = min(enumerate(queue), key=lambda x: x[1][1])
+        idx, (parent, _) = min(
+            enumerate(queue),
+            key=lambda x: (
+                float(x[1][1]) if x[1][1] is not None else float("inf")
+            ),
+        )
         del queue[idx]
-        for child in _outgoing_edges(graph, parent[0]):
-            alternate_path = distance[parent[0]] + weight_to_float(
-                graph.get_edge(parent[0], child[0])
+        for child, _ in _outgoing_edges(graph, parent):
+
+            alternate_path = join_weights(
+                distance[parent], graph.get_edge(parent, child)
             )
-            if (alternate_path < distance[child[0]]) and (
-                distance[parent[0]] != float("inf")
+            child_min_distance = distance[child]
+            if alternate_path is not None and (
+                (child_min_distance is None)
+                or (alternate_path < child_min_distance)
             ):
-                distance[child[0]] = alternate_path
-                previous[child[0]] = parent[0]
-                for idx, item in enumerate(queue):
-                    if item[0] == child[0]:
-                        queue[idx] = (child[0], alternate_path)
+                distance[child] = alternate_path
+                previous[child] = parent
+                for idx, (item, _) in enumerate(queue):
+                    if item == child:
+                        queue[idx] = (child, alternate_path)
     return distance, previous
 
 
