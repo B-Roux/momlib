@@ -17,15 +17,18 @@ Notes
 
 import warnings
 
-from .header import NodeNotFoundError
+from .header import NegativeWeightError, NodeNotFoundError
 from .graph import Graph
 from .digraph import DiGraph
+from .tools import shortest_paths
 
 
 __all__ = (
+    "NegativeWeightError",
     "NodeNotFoundError",
     "Graph",
     "DiGraph",
+    "shortest_paths",
 )
 
 
