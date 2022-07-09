@@ -33,3 +33,5 @@ __all__ = (
 
 from . import linalg
 from . import graph
+
+__version__ = "0.0.1"
