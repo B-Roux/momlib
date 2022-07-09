@@ -37,6 +37,7 @@ completely defined. This will change upon the release of version
 * [Graph Theory](./docs/api/graph)
   * [Graph](./docs/api/graph/graph.md)
   * [Directed graph](./docs/api/graph/digraph.md)
+  * [Graph theory tools](./docs/api/graph/tools.md)
 
 # Licensing
 The official (and only!) licensing agreement for using this project can
