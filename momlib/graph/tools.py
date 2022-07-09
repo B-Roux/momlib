@@ -37,18 +37,19 @@ def shortest_paths(
     Possible Errors
     - NegativeWeightError: If a negative weight is found.
     """
-    # I wrote most of this while delirious with COVID-19, I'm sorry future me
+    # I wrote most of this while delirious with COVID-19, I'm sorry
+    # future me (or anyone else)
     distance: list[Fraction | None] = [None] * len(graph)
     previous: list[int | None] = [None] * len(graph)
-    queue: list[tuple[int, Fraction | None]] = []
+    node_queue: list[tuple[int, Fraction | None]] = []
 
     distance[source] = Fraction(0)
     for node in range(len(graph)):
-        queue.append((node, distance[node]))
-    build_min_heap(queue)
+        node_queue.append((node, distance[node]))
+    build_min_heap(node_queue)
 
-    while len(queue) > 0:
-        parent, _ = extract_min(queue)
+    while len(node_queue) > 0:
+        parent, _ = extract_min(node_queue)
         for child_node, child_distance in _outgoing_edges(graph, parent):
             if child_distance < 0:
                 raise NegativeWeightError(
@@ -67,9 +68,9 @@ def shortest_paths(
             ):
                 distance[child_node] = alternate_path
                 previous[child_node] = parent
-                for idx, (item, _) in enumerate(queue):
+                for index, (item, _) in enumerate(node_queue):
                     if item == child_node:
-                        decrease_key(queue, idx, alternate_path)
+                        decrease_key(node_queue, index, alternate_path)
     return distance, previous
 
 

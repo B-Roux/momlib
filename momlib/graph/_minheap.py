@@ -6,6 +6,17 @@ Min heaps are implemented as lists that maintain the min heap property
     in-place.
 """
 
+# I felt like this was the best way to implement a minheap-based
+# priority queue for graph algorithms because the built-in
+# queue.PriorityQueue implementation makes it hard to do certain things,
+# like interpreting 'None' (in the context of no known connection) as
+# infinitely low priority, or the ability to change key values - both
+# of which are necessary for implementing things like Dijkstra's
+# algorithm.
+#
+# Maybe a better way presents itself at some point, but having explored
+# both options, this is the one I personally prefer.
+
 from fractions import Fraction
 
 __all__ = (
@@ -72,6 +83,9 @@ def _compare_frac_none(
             return True
         else:
             return a < b
+
+
+# PRIVATE/PROTECTED METHODS
 
 
 def _parent(
