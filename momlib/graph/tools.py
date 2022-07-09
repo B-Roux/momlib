@@ -1,5 +1,6 @@
 """
-This is a placeholder.
+Provides an assortment of more advanced tools to work with `Graph` and
+    `DiGraph` objects.
 """
 
 from __future__ import annotations
@@ -10,6 +11,8 @@ from typing import Iterable
 from .header import NegativeWeightError
 from .graph import Graph
 from .digraph import DiGraph
+
+from ._minheap import build_min_heap, extract_min, decrease_key
 
 __all__ = ("shortest_paths",)
 
@@ -42,10 +45,10 @@ def shortest_paths(
     distance[source] = Fraction(0)
     for node in range(len(graph)):
         queue.append((node, distance[node]))
-    _heap_build_min(queue)
+    build_min_heap(queue)
 
     while len(queue) > 0:
-        parent, _ = _heap_extract_min(queue)
+        parent, _ = extract_min(queue)
         for child_node, child_distance in _outgoing_edges(graph, parent):
             if child_distance < 0:
                 raise NegativeWeightError(
@@ -66,7 +69,7 @@ def shortest_paths(
                 previous[child_node] = parent
                 for idx, (item, _) in enumerate(queue):
                     if item == child_node:
-                        _heap_decrease_key(queue, idx, alternate_path)
+                        decrease_key(queue, idx, alternate_path)
     return distance, previous
 
 
@@ -85,112 +88,3 @@ def _outgoing_edges(
         return graph.get_neighbors(source)
     else:
         return graph.get_children(source)
-
-
-# MIN HEAP METHODS
-
-
-def _lt_frac_none(
-    a: Fraction | None,
-    b: Fraction | None,
-) -> bool:
-    """
-    Compares two fractions or none values, where none is considered
-        infinite (or greater than any non-none value).
-    """
-    if a is None:
-        return False
-    else:
-        if b is None:
-            return True
-        else:
-            return a < b
-
-
-def _heap_parent(
-    i: int,
-):
-    """
-    Returns a heap parent index.
-    """
-    return (i - 1) // 2
-
-
-def _heap_rchild(
-    i: int,
-):
-    """
-    Returns a heap right-child index.
-    """
-    return (i * 2) + 2
-
-
-def _heap_lchild(
-    i: int,
-):
-    """
-    Returns a heap left-child index.
-    """
-    return (i * 2) + 1
-
-
-def _heap_minify(
-    heap: list[tuple[int, Fraction | None]],
-    i: int,
-):
-    """
-    Maintains the min heap property for a given index in a heap.
-    """
-    lc = _heap_lchild(i)
-    rc = _heap_rchild(i)
-    if lc < len(heap) and _lt_frac_none(heap[lc][1], heap[i][1]):
-        smallest = lc
-    else:
-        smallest = i
-    if rc < len(heap) and _lt_frac_none(heap[rc][1], heap[smallest][1]):
-        smallest = rc
-    if smallest != i:
-        heap[i], heap[smallest] = heap[smallest], heap[i]
-        _heap_minify(heap, smallest)
-
-
-def _heap_build_min(
-    heap: list[tuple[int, Fraction | None]],
-):
-    """
-    Converts an unsorted array into a min heap.
-    """
-    for i in range(len(heap) // 2, -1, -1):
-        _heap_minify(heap, i)
-
-
-def _heap_extract_min(
-    heap: list[tuple[int, Fraction | None]],
-):
-    """
-    Removes and returns the minimum element in a min heap.
-    """
-    min_el = heap[0]
-    heap[0] = heap[-1]
-    del heap[-1]
-    _heap_minify(heap, 0)
-    return min_el
-
-
-def _heap_decrease_key(
-    heap: list[tuple[int, Fraction | None]],
-    index: int,
-    key: Fraction,
-):
-    """
-    Reduces the key value for a given item in the heap.
-    """
-    heap[index] = (heap[index][0], key)
-    while index > 0 and _lt_frac_none(
-        heap[index][1],
-        heap[_heap_parent(index)][1],
-    ):
-        heap[_heap_parent(index)], heap[index] = (
-            heap[index],
-            heap[_heap_parent(index)],
-        )

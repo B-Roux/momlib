@@ -16,7 +16,13 @@ __all__ = ("DiGraph",)
 
 class DiGraph:
     """
-    This is a placeholder.
+    Expresses the mathematical notion of an directed, optionally
+        weighted graph in native Python datastructures and datatypes
+        while providing an assortment of tools to perform basic graph
+        manipulations.
+
+    `DiGraph` objects are considered mutable, which means they can be
+        modified and should not be used as dictionary keys or set items.
     """
 
     __slots__ = ("_edge_data", "_length")
@@ -27,7 +33,22 @@ class DiGraph:
         edges: Optional[Iterable[Iterable[float | Fraction | None]]] = None,
     ) -> None:
         """
-        This is a placeholder.
+        Initializes a new instance of the `DiGraph` class.
+
+        Arguments
+        - node_count: The number of nodes to initialize the digraph
+            with.
+        - edges: The edge data to initialize the digraph with - an
+            iterable that must produce a matrix such that each entry
+            describes a connection between the nodes that correspond to
+            its coordinates.
+            Using this parameter is not recommended, instead, consider
+            using the `set_children`, `set_parents` or `set_edge`
+            functions.
+            Optional, defaults to `None`.
+
+        Possible Errors
+        - ValueError: If `edges` produces a malformed adjacency matrix.
         """
         edge_data: list[list[Fraction | None]] | None = None
         if edges is not None:
@@ -53,7 +74,7 @@ class DiGraph:
         self,
     ) -> int:
         """
-        This is a placeholder.
+        Returns the total number of nodes in this digraph.
         """
         return self._length
 
@@ -61,7 +82,7 @@ class DiGraph:
         self,
     ) -> str:
         """
-        This is a placeholder.
+        Returns a "pretty" string representation of this digraph.
         """
         graph_string_builder: list[str | None] = [
             None for _ in range(self._length)
@@ -107,7 +128,12 @@ class DiGraph:
         self,
     ) -> str:
         """
-        This is a placeholder.
+        Returns a reproduction string representation of this digraph.
+
+        Notes
+        - Assuming all relevant libraries have been imported, the
+            reproduction string can be run as valid Python to create
+            an exact copy of this digraph.
         """
         obj_name = self.__class__.__name__
         node_count = self._length
@@ -134,7 +160,23 @@ class DiGraph:
         ] = None,
     ) -> int:
         """
-        This is a placeholder.
+        Creates a new node in this digraph, and returns its index for
+            convenience.
+
+        Arguments
+        - children: An iterable of node indices or index-weight tuples
+            that will be used to initialize the new node's outbound
+            connections.
+            Optional, defaults to none.
+        - parents: An iterable of node indices or index-weight tuples
+            that will be used to initialize the new node's inbound
+            connections.
+            Optional, defaults to none.
+
+        Notes
+        - Specifying the children or parents parameters is equivalent to
+            leaving it blank and calling the `set_children` or
+            `set_parents` methods (respectively) manually.
         """
         new_node_index = self._length
         for edge_data_row in self._edge_data:
@@ -153,7 +195,18 @@ class DiGraph:
         child: int,
     ) -> Fraction | None:
         """
-        This is a placeholder.
+        Gets the value of an edge from a parent to a child node.
+
+        Arguments
+        - parent: The parent node of the edge.
+        - child: The child node of the edge.
+
+        Possible Errors
+        - NodeNotFoundError: If a specified node index does not exist.
+
+        Notes
+        - Since directed edges have directionality, the order of the
+            operands matters.
         """
         try:
             return self._edge_data[parent][child]
@@ -165,7 +218,11 @@ class DiGraph:
         node: int,
     ) -> Iterable[tuple[int, Fraction]]:
         """
-        This is a placeholder.
+        Generate index-weight tuples for each edge from this a parent
+            node to this node.
+
+        Arguments
+        - node: The node for which to find parent nodes.
         """
         for i in range(self._length):
             weight = self._edge_data[i][node]
@@ -177,7 +234,11 @@ class DiGraph:
         node: int,
     ) -> Iterable[tuple[int, Fraction]]:
         """
-        This is a placeholder.
+        Generate index-weight tuples for each edge from this node to a
+            child node.
+
+        Arguments
+        - node: The node for which to find child nodes.
         """
         for i in range(self._length):
             weight = self._edge_data[node][i]
@@ -191,7 +252,23 @@ class DiGraph:
         weight: float | Fraction | None = Fraction(1),
     ) -> None:
         """
-        This is a placeholder.
+        Set the value of an edge by overwriting its old value.
+
+        Arguments
+        - parent: The source node for the edge.
+        - child: The destination node for the edge.
+        - weight: The weight of the edge.
+            Optional, defaults to 1.
+
+        Possible Errors
+        - NodeNotFoundError: If a specified node index does not exist.
+
+        Notes
+        - A weight of 0 does not imply a non-connection, it simply means
+            a connection with weight 0. To explicitly specify a
+            non-connection, use a weight of `None`.
+        - Since directed edges have directionality, the order of the
+            operands matters.
         """
         try:
             if weight is None:
@@ -207,7 +284,16 @@ class DiGraph:
         parents: Iterable[int | tuple[int, float | Fraction | None]],
     ) -> None:
         """
-        This is a placeholder.
+        Set edges based on indices or index-weight tuples for each edge
+            from a parent node to a this node.
+
+        Arguments
+        - node: The node for which to set parent nodes.
+
+        Notes
+        - A weight of 0 does not imply a non-connection, it simply means
+            a connection with weight 0. To explicitly specify a non-
+            connection, use a weight of `None`.
         """
         for parent in parents:
             if isinstance(parent, int):
@@ -221,7 +307,16 @@ class DiGraph:
         children: Iterable[int | tuple[int, float | Fraction | None]],
     ) -> None:
         """
-        This is a placeholder.
+        Set edges based on indices or index-weight tuples for each edge
+            from this node to a child node.
+
+        Arguments
+        - node: The node for which to set child nodes.
+
+        Notes
+        - A weight of 0 does not imply a non-connection, it simply means
+            a connection with weight 0. To explicitly specify a non-
+            connection, use a weight of `None`.
         """
         for child in children:
             if isinstance(child, int):
@@ -234,7 +329,12 @@ class DiGraph:
         node: int,
     ) -> Fraction:
         """
-        This is a placeholder.
+        Calculates the in-degree of a node in this digraph, where
+            in-degree refers to the combined weight of all incoming to
+            the node.
+
+        Arguments
+        - node: The node for which to find the in-degree.
         """
         return sum(
             (
@@ -252,7 +352,12 @@ class DiGraph:
         node: int,
     ) -> Fraction:
         """
-        This is a placeholder.
+        Calculates the out-degree of a node in this digraph, where
+            out-degree refers to the combined weight of all outgoing
+            edges from the node.
+
+        Arguments
+        - node: The node for which to find the out-degree.
         """
         return sum(
             (v for v in self._edge_data[node] if v is not None),

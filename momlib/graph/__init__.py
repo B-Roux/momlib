@@ -31,9 +31,13 @@ __all__ = (
     "shortest_paths",
 )
 
-
+# TODO: Remove when this submodule becomes more stable
 warnings.warn(
-    "momlib.graph is still in very early development, expect code that relies on this module to break often (until this warning is removed when the module matures)",
+    (
+        "momlib.graph is still in very early development, expect code that "
+        "relies on this module to break often (until this warning is removed "
+        "when the module matures)"
+    ),
     category=FutureWarning,
     stacklevel=3,
 )

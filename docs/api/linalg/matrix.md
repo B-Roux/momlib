@@ -1,7 +1,7 @@
 # Matrix Object API
 
-Expresses the mathematical notion of a matrix in **R**^2 in native
-    Python datastructures and datatypes while providing an
+Expresses the mathematical notion of a rational-valued matrix in
+    native Python datastructures and datatypes while providing an
     assortment of tools to perform basic matrix manipulations.
 
 `Matrix` objects are considered non-mutable, which means that for
@@ -31,6 +31,7 @@ Arguments
 - other: The right-hand side rows to append.
 - horizontally: Whether to concatenate the matrices horizontally
     (when true) or vertically (when false).
+    Optional, defaults to true.
 
 Possible Errors
 - DimensionMismatchError: If the two matrices have unequal shape

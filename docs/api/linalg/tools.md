@@ -5,7 +5,6 @@ Provides an assortment of more advanced linear algebra tools to work
 
 ## Contents
 
-- [angle](#angle)
 - [cross](#cross)
 - [determinant](#determinant)
 - [distance](#distance)
@@ -26,31 +25,13 @@ Provides an assortment of more advanced linear algebra tools to work
 
 ---
 
-## angle
-```python
-(direction_a: 'Vector', direction_b: 'Vector') -> 'float'
-```
-Calculates the angle between two vectors in radians.
-
-Arguments
-- direction_a: The "starting" direction.
-- direction_b: The "ending" direction.
-
-Possible Errors
-- DimensionMismatchError: If `direction_a` and `direction_b` do not
-    have the same length.
-
-Notes
-- May introduce floating point errors.
-
----
-
 ## cross
 ```python
 (*vectors: 'Vector') -> 'Vector'
 ```
-Calculates a vector that is orthogonal to every given vector, while
-    its length represents the area-equivalent of their product.
+Calculates a vector that is orthogonal to every given vector, in the
+    case of exactly two 3-dimensional inputs, this is the cross
+    product.
 
 Arguments
 - *vectors: The collection of vectors to cross (the number of

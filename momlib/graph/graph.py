@@ -44,7 +44,7 @@ class Graph:
             that correspond to its coordinates.
             Using this parameter is not recommended, instead, consider
             using the `set_neighbors` or `set_edge` function.
-            Optional, defaults to none.
+            Optional, defaults to `None`.
 
         Possible Errors
         - ValueError: If `edges` produces a malformed lower triangular
@@ -234,7 +234,7 @@ class Graph:
         - node: The source node for the edge.
         - neighbor: The destination node for the edge.
         - weight: The weight of the edge.
-            Optional, defaults to `None`.
+            Optional, defaults to 1.
 
         Possible Errors
         - NodeNotFoundError: If a specified node index does not exist.

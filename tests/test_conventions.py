@@ -53,42 +53,49 @@ class TestConventions(unittest.TestCase):
                     )
 
         # Linear Algebra
-        for i in linalg.Matrix.__dict__:
-            if isinstance(linalg.Matrix.__dict__[i], FunctionType):
+        for name, item in linalg.Matrix.__dict__.items():
+            if isinstance(item, FunctionType):
                 test_sig(
-                    i,
-                    signature(linalg.Matrix.__dict__[i]),
+                    name,
+                    signature(item),
                     "linalg/matrix.py",
                 )
-        for i in linalg.Vector.__dict__:
-            if isinstance(linalg.Vector.__dict__[i], FunctionType):
+        for name, item in linalg.Vector.__dict__.items():
+            if isinstance(item, FunctionType):
                 test_sig(
-                    i,
-                    signature(linalg.Vector.__dict__[i]),
+                    name,
+                    signature(item),
                     "linalg/vector.py",
                 )
-        for i in linalg.tools.__dict__:
-            if isinstance(linalg.tools.__dict__[i], FunctionType):
+        for name, item in linalg.tools.__dict__.items():
+            if isinstance(item, FunctionType):
                 test_sig(
-                    i,
-                    signature(linalg.tools.__dict__[i]),
+                    name,
+                    signature(item),
                     "linalg/tools.py",
                 )
 
         # Graph Theory
-        for i in graph.Graph.__dict__:
-            if isinstance(graph.Graph.__dict__[i], FunctionType):
+        for name, item in graph.Graph.__dict__.items():
+            if isinstance(item, FunctionType):
                 test_sig(
-                    i,
-                    signature(graph.Graph.__dict__[i]),
+                    name,
+                    signature(item),
                     "graph/graph.py",
                 )
-        for i in graph.DiGraph.__dict__:
-            if isinstance(graph.DiGraph.__dict__[i], FunctionType):
+        for name, item in graph.DiGraph.__dict__.items():
+            if isinstance(item, FunctionType):
                 test_sig(
-                    i,
-                    signature(graph.DiGraph.__dict__[i]),
+                    name,
+                    signature(item),
                     "graph/digraph.py",
+                )
+        for name, item in graph.tools.__dict__.items():
+            if isinstance(item, FunctionType):
+                test_sig(
+                    name,
+                    signature(item),
+                    "graph/tools.py",
                 )
 
     def test_function_docstrings(self):
@@ -141,42 +148,49 @@ class TestConventions(unittest.TestCase):
                 )
 
         # Linear Algebra
-        for i in linalg.Matrix.__dict__:
-            if isinstance(linalg.Matrix.__dict__[i], FunctionType):
+        for name, item in linalg.Matrix.__dict__.items():
+            if isinstance(item, FunctionType):
                 test_doc(
-                    i,
-                    linalg.Matrix.__dict__[i].__doc__,
+                    name,
+                    item.__doc__,
                     "linalg/matrix.py",
                 )
-        for i in linalg.Vector.__dict__:
-            if isinstance(linalg.Vector.__dict__[i], FunctionType):
+        for name, item in linalg.Vector.__dict__.items():
+            if isinstance(item, FunctionType):
                 test_doc(
-                    i,
-                    linalg.Vector.__dict__[i].__doc__,
+                    name,
+                    item.__doc__,
                     "linalg/vector.py",
                 )
-        for i in linalg.tools.__dict__:
-            if isinstance(linalg.tools.__dict__[i], FunctionType):
+        for name, item in linalg.tools.__dict__.items():
+            if isinstance(item, FunctionType):
                 test_doc(
-                    i,
-                    linalg.tools.__dict__[i].__doc__,
+                    name,
+                    item.__doc__,
                     "linalg/tools.py",
                 )
 
         # Graph Theory
-        for i in graph.Graph.__dict__:
-            if isinstance(graph.Graph.__dict__[i], FunctionType):
+        for name, item in graph.Graph.__dict__.items():
+            if isinstance(item, FunctionType):
                 test_doc(
-                    i,
-                    graph.Graph.__dict__[i].__doc__,
+                    name,
+                    item.__doc__,
                     "graph/graph.py",
                 )
-        for i in graph.DiGraph.__dict__:
-            if isinstance(graph.DiGraph.__dict__[i], FunctionType):
+        for name, item in graph.DiGraph.__dict__.items():
+            if isinstance(item, FunctionType):
                 test_doc(
-                    i,
-                    graph.DiGraph.__dict__[i].__doc__,
+                    name,
+                    item.__doc__,
                     "graph/digraph.py",
+                )
+        for name, item in graph.tools.__dict__.items():
+            if isinstance(item, FunctionType):
+                test_doc(
+                    name,
+                    item.__doc__,
+                    "graph/tools.py",
                 )
 
 
