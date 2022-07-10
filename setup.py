@@ -8,7 +8,7 @@ Please note that documentation for this package is not maintained on the
 PyPI repository.
 Please use the following links instead:
 
-- [momlib.org](https://momlib.org/) for the website (and tutorials!)
+- [www.momlib.org](https://www.momlib.org/) for the website (and tutorials!)
 - [github.com/B-Roux/momlib](https://github.com/B-Roux/momlib) for the repository
 - [github.com/B-Roux/momlib/issues](https://github.com/B-Roux/momlib/issues) for bug reports, feature requests, questions, concerns, etc.
 
