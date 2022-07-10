@@ -3,7 +3,8 @@
 [![License: BSD 3-Clause](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)  
 [![Code style: black](https://img.shields.io/badge/Style-Black%2C%20PEP--8-blue.svg)](https://github.com/psf/black)  
 
-[![Unit Tests](https://github.com/B-Roux/momlib/actions/workflows/tests.yml/badge.svg)](https://github.com/B-Roux/momlib/actions/workflows/tests.yml)  
+[![Unit Tests](https://github.com/B-Roux/momlib/actions/workflows/tests.yml/badge.svg)](https://github.com/B-Roux/momlib/actions/workflows/tests.yml) 
+[![PyPI Release Test](https://github.com/B-Roux/momlib/actions/workflows/pypi-release-test.yml/badge.svg?branch=master)](https://github.com/B-Roux/momlib/actions/workflows/pypi-release-test.yml)  
 
 # Mathematical<br>Object<br>Manipulation<br>Library
 
