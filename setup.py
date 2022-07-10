@@ -5,7 +5,7 @@ long_description = """
 ## The Mathematical Object Manipulation Library for Python 3!
 
 For regularly updated documentation, please visit the official repository at 
-[https://github.com/B-Roux/momlib](github.com/B-Roux/momlib).
+[github.com/B-Roux/momlib](https://github.com/B-Roux/momlib).
 
 This project is only a few months old and absolutely still in its infancy,
 however I am working on it as often as I have the time to spare by fixing
@@ -13,7 +13,7 @@ bugs that pop up and adding new features. If you have any questions,
 concerns, feature requests or bug reports; the best way to notify me is 
 through the [issues page](https://github.com/B-Roux/momlib/issues).
 
-While urgent emails to the author email may get responses on a case-by-case
+While some emails to the author email may get responses on a case-by-case
 basis, the topics mentioned above will be ignored (I apologize in advance).
 """
 
