@@ -5,10 +5,8 @@ name: Unit Tests
 
 on:
 
-  # Run tests when this workflow is updated
-  push:
-    paths:
-      - '.github/workflows/tests.yml'
+  # Run tests manually
+  workflow_dispatch:
 
   # Schedule testing every dat at 00:00 UTC (~6pm CST)
   schedule:
