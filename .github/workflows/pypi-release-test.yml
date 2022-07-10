@@ -28,7 +28,4 @@ jobs:
       - name: Try Install
         run: pip install momlib
       - name: Try Import
-        run: |
-          import momlib
-          import momlib.graph
-          import momlib.linalg
+        run: python -c "import momlib; import momlib.graph; import momlib.linalg"
