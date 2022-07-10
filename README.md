@@ -22,6 +22,10 @@ Please note that this package is currently in version 0.0.x meaning
     very early development. The public API may change drastically and
     often. As soon as version 0.1.0 is released, you should in most
     cases be able to expect some consistency. I hope this comes soon!
+    
+# Installing
+
+Coming to PyPI (pip) very soon!
 
 # Documentation
 ## Guide
