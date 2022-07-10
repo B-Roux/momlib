@@ -1,12 +1,11 @@
-[![Python: 3.10](https://img.shields.io/badge/Python-3.10-blue.svg)](https://www.python.org/)  
-[![Systems: Windows, Mac, Linux](https://img.shields.io/badge/Systems-Windows%2C%20Mac%2C%20Linux-blue.svg)]()  
-[![License: BSD 3-Clause](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)  
-[![Code style: black](https://img.shields.io/badge/Style-Black%2C%20PEP--8-blue.svg)](https://github.com/psf/black)  
+[![Python: 3.10](https://img.shields.io/badge/Python-3.10-blue.svg)](https://www.python.org/)
+[![Systems: Windows, Mac, Linux](https://img.shields.io/badge/Systems-Windows%2C%20Mac%2C%20Linux-blue.svg)]()
+[![License: BSD 3-Clause](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+[![Code style: black](https://img.shields.io/badge/Style-Black%2C%20PEP--8-blue.svg)](https://github.com/psf/black)
 
-[![Unit Tests](https://github.com/B-Roux/momlib/actions/workflows/tests.yml/badge.svg)](https://github.com/B-Roux/momlib/actions/workflows/tests.yml)  
-[![PyPI Release Test](https://github.com/B-Roux/momlib/actions/workflows/pypi-release-test.yml/badge.svg?branch=master)](https://github.com/B-Roux/momlib/actions/workflows/pypi-release-test.yml)  
+[![Unit Tests](https://github.com/B-Roux/momlib/actions/workflows/tests.yml/badge.svg)](https://github.com/B-Roux/momlib/actions/workflows/tests.yml)
 
-# Mathematical<br>Object<br>Manipulation<br>Library
+# Mathematical Object Manipulation Library
 
 This package attempts to capture a limited set of advanced mathematical
     objects and their associated operations in the most basic and
@@ -33,20 +32,9 @@ pip install momlib
 ```
 
 # Documentation
-## Guide
-The guide is not currently available as the public API has not been 
-completely defined. This will change upon the release of version 
-`0.1.x`.
-
-## API
-* [Linear Algebra](./docs/api/linalg)
-  * [Matrix](./docs/api/linalg/matrix.md)
-  * [Vector](./docs/api/linalg/vector.md)
-  * [Linear algebra tools](./docs/api/linalg/tools.md)
-* [Graph Theory](./docs/api/graph)
-  * [Graph](./docs/api/graph/graph.md)
-  * [Directed graph](./docs/api/graph/digraph.md)
-  * [Graph theory tools](./docs/api/graph/tools.md)
+Please see [www.momlib.org](https://www.momlib.org/) for tutorials and
+    introductions, or use the `help(...)` function in Python to find
+    inforation about how to use this library.
 
 # Licensing
 The official (and only!) licensing agreement for using this project can
@@ -62,8 +50,3 @@ I aim to keep my code well-formatted and to a tight standard. While this
     standard is constantly evolving and may get outdated often, I 
     attempt to capture its most recent form in 
     [this document](./design/code_conventions.md).
-    
-# Current Work
-I am currently mostly working on the graph theory submodule.
-    Until this is fully fleshed out, work on other submodules will be
-    minimal.
