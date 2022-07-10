@@ -225,3 +225,25 @@ In the example above, finding the path from node 4 (the 5th node) to node 2 (the
 
 The `new_node` function of both graphs returns the index at which the new node was created. You don't ever *need* to keep track of this, but if you wanted to you could use it with dictionaries to give your nodes quick and user-friendly identifiers, such as strings:
 
+```python
+import momlib.graph as gr
+
+direct_flights = gr.Graph()
+
+cities = {
+    "Sydney": direct_flights.new_node(),
+    "Cape Town": direct_flights.new_node(),
+    "New York": direct_flights.new_node(),
+    "Montreal": direct_flights.new_node(),
+    "London": direct_flights.new_node(),
+    "Paris": direct_flights.new_node(),
+}
+
+direct_flights.set_neighbors(cities["Cape Town"], [cities["Sydney"]])
+
+direct_flights.set_neighbors(
+    cities["London"], [cities["Cape Town"], cities["New York"]]
+)
+
+direct_flights.set_neighbors(cities["New York"], [cities["Montreal"]])
+```
