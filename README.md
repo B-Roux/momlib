@@ -25,7 +25,11 @@ Please note that this package is currently in version 0.0.x meaning
     
 # Installing
 
-Coming to PyPI (pip) very soon!
+This package can be installed from the PyPI release:
+
+```sh
+pip install momlib
+```
 
 # Documentation
 ## Guide
