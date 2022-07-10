@@ -1,5 +1,7 @@
 # Mathematical<br>Object<br>Manipulation<br>Library
 
+---
+
 ## Tutorial
 
 - [The `momlib.linalg` (linear algebra) submodule](./linalg)
