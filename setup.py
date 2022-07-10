@@ -19,7 +19,7 @@ basis, the topics mentioned above will be ignored (I apologize in advance).
 
 setup(
     name="momlib",
-    version="0.0.1",
+    version="0.0.2",
     url="https://github.com/B-Roux/momlib",
     author="B. Roux",
     author_email="contact@momlib.org",
