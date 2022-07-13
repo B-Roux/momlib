@@ -1,18 +1,22 @@
 from setuptools import setup
 
 long_description = """
-# momlub
-## The Mathematical Object Manipulation Library for Python 3!
+# momlib
+## The Mathematical Object Manipulation Library for Python
 
 Please note that documentation for this package is not maintained on the
 PyPI repository.
 Please use the following links instead:
 
-- [www.momlib.org](https://www.momlib.org/) for the website (and tutorials!)
-- [github.com/B-Roux/momlib](https://github.com/B-Roux/momlib) for the repository
-- [github.com/B-Roux/momlib/issues](https://github.com/B-Roux/momlib/issues) for bug reports, feature requests, questions, concerns, etc.
+- [www.momlib.org](https://www.momlib.org/)
+    for the website (documentation and tutorials!)
+- [github.com/B-Roux/momlib](https://github.com/B-Roux/momlib)
+    for the repository
+- [github.com/B-Roux/momlib/issues](https://github.com/B-Roux/momlib/issues)
+    for bug reports, feature requests, questions, concerns, etc.
 
-Please note that the email associated with this package may not reply to messages. Please use the issue page if you need a reply.
+Please note that the email associated with this package may not reply to
+    messages. Please use the issue page if you need a reply.
 """
 
 setup(

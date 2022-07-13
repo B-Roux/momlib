@@ -56,6 +56,9 @@ This library has a very specific and niche function, and I will be the
     As such, this library comes with absolutely no guarantees,
     warrantees or promises. Please see the licensing agreement.
 
+I am not affiliated with any of the products or services mentioned in
+    the above section.
+
 # Installing
 
 This package can be installed from the PyPI release:
@@ -64,12 +67,21 @@ This package can be installed from the PyPI release:
 python -m pip install momlib
 ```
 
-## Reference
+# Licensing
+
+All use of this library - in any form -  is subject to
+    [the licensing agreement](./license). Use of this package is
+    considered acknowledgement and agreement with these terms and
+    conditions.
+
+Please review this document very carefully.
+
+# Reference
 
 - [`momlib.linalg` - The Linear Algebra Submodule](./linalg)
 - [`momlib.graph` - The Graph Theory Submodule](./graph)
 
-## News
+# News
 
 - The `momlib.graph` submodule is still under construction - avoid
     depending on it in cod that needs to not break in subsequent
