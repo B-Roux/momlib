@@ -2,6 +2,8 @@
 Provides graph theory objects and and tools.
 
 Notes
+- This module is not being tested yet - it is still in early
+    development. Use with caution.
 - Node relations are consistently described with familial relations:
     - `neighbor` in an undirected graph refers to a node that shares an
         edge with the specified node.

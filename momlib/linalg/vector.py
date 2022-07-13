@@ -22,8 +22,8 @@ __all__ = ("Vector",)
 
 class Vector:
     """
-    Expresses the mathematical notion of a Vector in **R** in native
-        Python datastructures and datatypes while providing an
+    Expresses the mathematical notion of a rational-valued Vector in
+        native Python datastructures and datatypes while providing an
         assortment of tools to perform basic vector manipulations.
 
     `Vector` objects are considered non-mutable, which means that for

@@ -28,7 +28,7 @@ Please note that this package is currently in version 0.0.x meaning
 This package can be installed from the PyPI release:
 
 ```sh
-pip install momlib
+python -m pip install momlib
 ```
 
 # Documentation

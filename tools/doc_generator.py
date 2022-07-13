@@ -1,5 +1,6 @@
 from typing import Literal
-import momlib
+import momlib.linalg
+import momlib.graph
 from types import FunctionType, ModuleType
 from inspect import signature, cleandoc
 

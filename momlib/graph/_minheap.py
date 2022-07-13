@@ -68,6 +68,9 @@ def decrease_key(
         )
 
 
+# PRIVATE/PROTECTED METHODS
+
+
 def _compare_frac_none(
     a: Fraction | None,
     b: Fraction | None,
@@ -83,9 +86,6 @@ def _compare_frac_none(
             return True
         else:
             return a < b
-
-
-# PRIVATE/PROTECTED METHODS
 
 
 def _parent(

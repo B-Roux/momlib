@@ -12,7 +12,11 @@ from .header import NegativeWeightError
 from .graph import Graph
 from .digraph import DiGraph
 
-from ._minheap import build_min_heap, extract_min, decrease_key
+from ._minheap import (
+    build_min_heap as _build_min_heap,
+    extract_min as _extract_min,
+    decrease_key as _decrease_key,
+)
 
 __all__ = ("shortest_paths",)
 
@@ -46,10 +50,10 @@ def shortest_paths(
     distance[source] = Fraction(0)
     for node in range(len(graph)):
         node_queue.append((node, distance[node]))
-    build_min_heap(node_queue)
+    _build_min_heap(node_queue)
 
     while len(node_queue) > 0:
-        parent, _ = extract_min(node_queue)
+        parent, _ = _extract_min(node_queue)
         for child_node, child_distance in _outgoing_edges(graph, parent):
             if child_distance < 0:
                 raise NegativeWeightError(
@@ -70,7 +74,7 @@ def shortest_paths(
                 previous[child_node] = parent
                 for index, (item, _) in enumerate(node_queue):
                     if item == child_node:
-                        decrease_key(node_queue, index, alternate_path)
+                        _decrease_key(node_queue, index, alternate_path)
     return distance, previous
 
 
