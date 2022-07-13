@@ -1,28 +1,41 @@
 # Vector Object Instance Methods
+
+Expresses the mathematical notion of a Vector in **R** in native
+    Python datastructures and datatypes while providing an
+    assortment of tools to perform basic vector manipulations.
+
+`Vector` objects are considered non-mutable, which means that for
+    the life of an object it cannot be meaningfully modified[^1].
+    Vectors are, therefore, hashable (using
+    `hash(vector\_instance)`).
+
+[^1]: If you need to modify a `Vector`, look into the
+    `vector\_instance.elements` property.
+
 ## Contents
 
-- [\_\_init\_\_](./#\_\_init\_\_)
-- [\_\_len\_\_](./#\_\_len\_\_)
-- [\_\_getitem\_\_](./#\_\_getitem\_\_)
-- [\_\_iter\_\_](./#\_\_iter\_\_)
-- [\_\_next\_\_](./#\_\_next\_\_)
-- [\_\_str\_\_](./#\_\_str\_\_)
-- [\_\_repr\_\_](./#\_\_repr\_\_)
-- [\_\_matmul\_\_](./#\_\_matmul\_\_)
-- [\_\_mul\_\_](./#\_\_mul\_\_)
-- [\_\_rmul\_\_](./#\_\_rmul\_\_)
-- [\_\_truediv\_\_](./#\_\_truediv\_\_)
-- [\_\_rtruediv\_\_](./#\_\_rtruediv\_\_)
-- [\_\_add\_\_](./#\_\_add\_\_)
-- [\_\_radd\_\_](./#\_\_radd\_\_)
-- [\_\_sub\_\_](./#\_\_sub\_\_)
-- [\_\_rsub\_\_](./#\_\_rsub\_\_)
-- [\_\_neg\_\_](./#\_\_neg\_\_)
-- [\_\_eq\_\_](./#\_\_eq\_\_)
-- [\_\_hash\_\_](./#\_\_hash\_\_)
+- [\_\_init\_\_](./#__init__)
+- [\_\_len\_\_](./#__len__)
+- [\_\_getitem\_\_](./#__getitem__)
+- [\_\_iter\_\_](./#__iter__)
+- [\_\_next\_\_](./#__next__)
+- [\_\_str\_\_](./#__str__)
+- [\_\_repr\_\_](./#__repr__)
+- [\_\_matmul\_\_](./#__matmul__)
+- [\_\_mul\_\_](./#__mul__)
+- [\_\_rmul\_\_](./#__rmul__)
+- [\_\_truediv\_\_](./#__truediv__)
+- [\_\_rtruediv\_\_](./#__rtruediv__)
+- [\_\_add\_\_](./#__add__)
+- [\_\_radd\_\_](./#__radd__)
+- [\_\_sub\_\_](./#__sub__)
+- [\_\_rsub\_\_](./#__rsub__)
+- [\_\_neg\_\_](./#__neg__)
+- [\_\_eq\_\_](./#__eq__)
+- [\_\_hash\_\_](./#__hash__)
 - [cat](./#cat)
-- [get\_slice](./#get\_slice)
-- [limit\_denominator](./#limit\_denominator)
+- [get\_slice](./#get_slice)
+- [limit\_denominator](./#limit_denominator)
 
 ---
 
@@ -390,3 +403,5 @@ Arguments
 
 Possible Errors
 - ZeroDivisionError: If `max\_denominator` is 0.
+
+<!--this file has been automatically generated-->

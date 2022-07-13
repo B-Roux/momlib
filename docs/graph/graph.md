@@ -1,15 +1,24 @@
 # Graph Object Instance Methods
+
+Expresses the mathematical notion of an undirected, optionally
+    weighted graph in native Python datastructures and datatypes
+    while providing an assortment of tools to perform basic graph
+    manipulations.
+
+`Graph` objects are considered mutable, which means they can be
+    modified and should not be used as dictionary keys or set items.
+
 ## Contents
 
-- [\_\_init\_\_](./#\_\_init\_\_)
-- [\_\_len\_\_](./#\_\_len\_\_)
-- [\_\_str\_\_](./#\_\_str\_\_)
-- [\_\_repr\_\_](./#\_\_repr\_\_)
-- [new\_node](./#new\_node)
-- [get\_edge](./#get\_edge)
-- [get\_neighbors](./#get\_neighbors)
-- [set\_edge](./#set\_edge)
-- [set\_neighbors](./#set\_neighbors)
+- [\_\_init\_\_](./#__init__)
+- [\_\_len\_\_](./#__len__)
+- [\_\_str\_\_](./#__str__)
+- [\_\_repr\_\_](./#__repr__)
+- [new\_node](./#new_node)
+- [get\_edge](./#get_edge)
+- [get\_neighbors](./#get_neighbors)
+- [set\_edge](./#set_edge)
+- [set\_neighbors](./#set_neighbors)
 - [degree](./#degree)
 
 ---
@@ -190,3 +199,5 @@ Notes
 - For 'loop edges' (edges that start and end at the same node),
     the degree is counted twice. This is not a bug, it has to
     do with the definition of degree in an undirected graph.
+
+<!--this file has been automatically generated-->

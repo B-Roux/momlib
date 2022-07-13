@@ -1,7 +1,11 @@
 # Graph Theory Tools
+
+Provides an assortment of more advanced tools to work with `Graph` and
+    `DiGraph` objects.
+
 ## Contents
 
-- [shortest\_paths](./#shortest\_paths)
+- [shortest\_paths](./#shortest_paths)
 
 ---
 
@@ -25,3 +29,5 @@ Arguments
 
 Possible Errors
 - NegativeWeightError: If a negative weight is found.
+
+<!--this file has been automatically generated-->

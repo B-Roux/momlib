@@ -1,22 +1,26 @@
 # Linear Algebra Tools
+
+Provides an assortment of more advanced linear algebra tools to work
+    with `Vector` and `Matrix` objects.
+
 ## Contents
 
 - [cross](./#cross)
 - [determinant](./#determinant)
 - [distance](./#distance)
-- [get\_vectors](./#get\_vectors)
-- [homogenous\_matrix](./#homogenous\_matrix)
-- [homogenous\_vector](./#homogenous\_vector)
+- [get\_vectors](./#get_vectors)
+- [homogenous\_matrix](./#homogenous_matrix)
+- [homogenous\_vector](./#homogenous_vector)
 - [identity](./#identity)
 - [inverse](./#inverse)
-- [laplace\_expansion](./#laplace\_expansion)
+- [laplace\_expansion](./#laplace_expansion)
 - [magnitude](./#magnitude)
 - [matcat](./#matcat)
-- [matrix\_power](./#matrix\_power)
+- [matrix\_power](./#matrix_power)
 - [normalize](./#normalize)
 - [orthogonalize](./#orthogonalize)
 - [rank](./#rank)
-- [row\_reduce](./#row\_reduce)
+- [row\_reduce](./#row_reduce)
 - [transpose](./#transpose)
 
 ---
@@ -324,3 +328,5 @@ Calculate the transpose of a given matrix.
 
 Arguments
 - matrix: The matrix to transpose.
+
+<!--this file has been automatically generated-->

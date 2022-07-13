@@ -14,7 +14,7 @@ def gen_doc(input: ModuleType | object):
         ):
             contents.append(
                 {
-                    "name": name.replace("_", "\\_"),
+                    "name": name,
                     "sig": str(signature(item)),
                     "doc": cleandoc(
                         item.__doc__ if item.__doc__ is not None else ""
@@ -22,13 +22,28 @@ def gen_doc(input: ModuleType | object):
                 }
             )
     return (
-        "## Contents\n\n"
-        + "\n".join(f"- [{i['name']}](./#{i['name']})" for i in contents)
-        + "\n\n---\n\n"
-        + "\n\n---\n\n".join(
-            f"# {i['name']}\n\n```python\n{i['sig']}\n```\n\n{i['doc']}"
+        # not the best practice for efficiency, but this script does not
+        # need to be efficient as it will be run very rarely.
+        "\n"
+        + cleandoc(input.__doc__ if input.__doc__ is not None else "").replace(
+            "_", "\\_"
+        )
+        + "\n\n## Contents\n\n"
+        + "\n".join(
+            "- [" + i["name"].replace("_", "\\_") + f"](./#{i['name']})"
             for i in contents
         )
+        + "\n\n---\n\n"
+        + "\n\n---\n\n".join(
+            (
+                "# "
+                + i["name"].replace("_", "\\_")
+                + "\n\n"
+                + f"```python\n{i['sig']}\n```\n\n{i['doc']}"
+            )
+            for i in contents
+        )
+        + "\n\n<!--this file has been automatically generated-->"
     )
 
 

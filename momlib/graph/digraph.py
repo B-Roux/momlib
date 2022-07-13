@@ -16,7 +16,7 @@ __all__ = ("DiGraph",)
 
 class DiGraph:
     """
-    Expresses the mathematical notion of an directed, optionally
+    Expresses the mathematical notion of a directed, optionally
         weighted graph in native Python datastructures and datatypes
         while providing an assortment of tools to perform basic graph
         manipulations.

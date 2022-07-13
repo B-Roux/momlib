@@ -22,10 +22,10 @@ This package can be installed from the PyPI release:
 pip install momlib
 ```
 
-## Tutorials
+## Reference
 
-- [The `momlib.linalg` (linear algebra) submodule](./linalg)
-- [The `momlib.graph` (graph theory) submodule](./graph)
+- [`momlib.linalg`](./linalg) - The Linear Algebra Submodule
+- [`momlib.graph`](./graph) - The Graph Theory Submodule
 
 ## Quick Notes
 

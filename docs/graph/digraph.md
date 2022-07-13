@@ -1,17 +1,26 @@
 # DiGraph Object Instance Methods
+
+Expresses the mathematical notion of a directed, optionally
+    weighted graph in native Python datastructures and datatypes
+    while providing an assortment of tools to perform basic graph
+    manipulations.
+
+`DiGraph` objects are considered mutable, which means they can be
+    modified and should not be used as dictionary keys or set items.
+
 ## Contents
 
-- [\_\_init\_\_](./#\_\_init\_\_)
-- [\_\_len\_\_](./#\_\_len\_\_)
-- [\_\_str\_\_](./#\_\_str\_\_)
-- [\_\_repr\_\_](./#\_\_repr\_\_)
-- [new\_node](./#new\_node)
-- [get\_edge](./#get\_edge)
-- [get\_parents](./#get\_parents)
-- [get\_children](./#get\_children)
-- [set\_edge](./#set\_edge)
-- [set\_parents](./#set\_parents)
-- [set\_children](./#set\_children)
+- [\_\_init\_\_](./#__init__)
+- [\_\_len\_\_](./#__len__)
+- [\_\_str\_\_](./#__str__)
+- [\_\_repr\_\_](./#__repr__)
+- [new\_node](./#new_node)
+- [get\_edge](./#get_edge)
+- [get\_parents](./#get_parents)
+- [get\_children](./#get_children)
+- [set\_edge](./#set_edge)
+- [set\_parents](./#set_parents)
+- [set\_children](./#set_children)
 - [indegree](./#indegree)
 - [outdegree](./#outdegree)
 
@@ -243,3 +252,5 @@ Calculates the out-degree of a node in this digraph, where
 
 Arguments
 - node: The node for which to find the out-degree.
+
+<!--this file has been automatically generated-->
