@@ -30,7 +30,7 @@ def gen_doc(input: ModuleType | object):
         )
         + "\n\n## Contents\n\n"
         + "\n".join(
-            "- [" + i["name"].replace("_", "\\_") + f"](./#{i['name']})"
+            "- [" + i["name"].replace("_", "\\_") + f"](#{i['name']})"
             for i in contents
         )
         + "\n\n---\n\n"

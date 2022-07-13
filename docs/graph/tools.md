@@ -5,7 +5,7 @@ Provides an assortment of more advanced tools to work with `Graph` and
 
 ## Contents
 
-- [shortest\_paths](./#shortest_paths)
+- [shortest\_paths](#shortest_paths)
 
 ---
 

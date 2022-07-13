@@ -10,16 +10,16 @@ Expresses the mathematical notion of an undirected, optionally
 
 ## Contents
 
-- [\_\_init\_\_](./#__init__)
-- [\_\_len\_\_](./#__len__)
-- [\_\_str\_\_](./#__str__)
-- [\_\_repr\_\_](./#__repr__)
-- [new\_node](./#new_node)
-- [get\_edge](./#get_edge)
-- [get\_neighbors](./#get_neighbors)
-- [set\_edge](./#set_edge)
-- [set\_neighbors](./#set_neighbors)
-- [degree](./#degree)
+- [\_\_init\_\_](#__init__)
+- [\_\_len\_\_](#__len__)
+- [\_\_str\_\_](#__str__)
+- [\_\_repr\_\_](#__repr__)
+- [new\_node](#new_node)
+- [get\_edge](#get_edge)
+- [get\_neighbors](#get_neighbors)
+- [set\_edge](#set_edge)
+- [set\_neighbors](#set_neighbors)
+- [degree](#degree)
 
 ---
 

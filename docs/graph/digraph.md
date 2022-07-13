@@ -10,19 +10,19 @@ Expresses the mathematical notion of a directed, optionally
 
 ## Contents
 
-- [\_\_init\_\_](./#__init__)
-- [\_\_len\_\_](./#__len__)
-- [\_\_str\_\_](./#__str__)
-- [\_\_repr\_\_](./#__repr__)
-- [new\_node](./#new_node)
-- [get\_edge](./#get_edge)
-- [get\_parents](./#get_parents)
-- [get\_children](./#get_children)
-- [set\_edge](./#set_edge)
-- [set\_parents](./#set_parents)
-- [set\_children](./#set_children)
-- [indegree](./#indegree)
-- [outdegree](./#outdegree)
+- [\_\_init\_\_](#__init__)
+- [\_\_len\_\_](#__len__)
+- [\_\_str\_\_](#__str__)
+- [\_\_repr\_\_](#__repr__)
+- [new\_node](#new_node)
+- [get\_edge](#get_edge)
+- [get\_parents](#get_parents)
+- [get\_children](#get_children)
+- [set\_edge](#set_edge)
+- [set\_parents](#set_parents)
+- [set\_children](#set_children)
+- [indegree](#indegree)
+- [outdegree](#outdegree)
 
 ---
 
