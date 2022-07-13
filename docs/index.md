@@ -24,8 +24,8 @@ pip install momlib
 
 ## Reference
 
-- [`momlib.linalg`](./linalg) - The Linear Algebra Submodule
-- [`momlib.graph`](./graph) - The Graph Theory Submodule
+- [`momlib.linalg` - The Linear Algebra Submodule](./linalg)
+- [`momlib.graph` - The Graph Theory Submodule](./graph)
 
 ## Quick Notes
 
