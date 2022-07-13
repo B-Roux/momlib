@@ -32,9 +32,10 @@ python -m pip install momlib
 ```
 
 # Documentation
-Please see [www.momlib.org](https://www.momlib.org/) for tutorials and
-    introductions, or use the `help(...)` function in Python to find
-    inforation about how to use this library.
+The main home of the documentation for this package is at 
+    [www.momlib.org](https://www.momlib.org/). You can also use the
+    `help(...)` function in-code to get an in-depth look at any 
+    part of this library.
 
 # Licensing
 The official (and only!) licensing agreement for using this project can
