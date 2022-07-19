@@ -77,6 +77,12 @@ python -m pip install momlib
 - The `momlib.graph` submodule is still under construction - avoid
     depending on it in cod that needs to not break in subsequent
     versions of this library!
+- I am planning on moving my development environment for this project
+    to Debian, starting whenever Python 3.10 is made available on the 
+    Debian repositories. This will ensure that the most up-to-date
+    version of this library will be compatible with the most recent
+    Python release on Debian, as opposed to ensuring compatibility
+    with the most recent release of Python as a whole.
 
 # License
 
