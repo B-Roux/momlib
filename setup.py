@@ -8,7 +8,7 @@ Please note that documentation for this package is not maintained on the
 PyPI repository.
 Please use the following links instead:
 
-- [www.momlib.org](https://www.momlib.org/)
+- [momlib.opensource.bgeroux.com](https://momlib.opensource.bgeroux.com/)
     for the website (documentation and tutorials!)
 - [github.com/B-Roux/momlib](https://github.com/B-Roux/momlib)
     for the repository
@@ -21,10 +21,10 @@ Please note that the email associated with this package may not reply to
 
 setup(
     name="momlib",
-    version="0.0.3",
+    version="0.0.4",
     url="https://github.com/B-Roux/momlib",
     author="B. Roux",
-    author_email="contact@momlib.org",
+    author_email="opensource@bgeroux.com",
     description="Mathematical Object Manipulation Library",
     long_description=long_description,
     long_description_content_type="text/markdown",
