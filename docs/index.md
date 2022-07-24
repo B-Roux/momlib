@@ -67,6 +67,26 @@ This package can be installed from the PyPI release:
 python -m pip install momlib
 ```
 
+# Verifying (Version 0.0.4)
+
+| Tarball | Hash |
+|:--:|:--|
+| SHA-256 | `3de64703a7d26618158de6291bcf589bb3128af9fe08fc45524acebd18e029dd` |
+| MD-5 | `7285f3f182e87850fb5b0b4860f56524` |
+| BLAKE2-256 | `29ee798bb0e9c3ff68afc5d41c52ad39d14388f518876b1aeef7c80a813e7633` |
+
+| Wheel | Hash |
+|:--:|:--|
+| SHA-256 | `9edb992c693daaadb51a4688af9a65948a0dd37ffa4f311c8e92cd4525fd8916` |
+| MD-5 | `a48240e9c586603fd846a7aab04d5189` |
+| BLAKE2-256 | `1185d9a43f6fa6ba18fdadaf8768d218115631ebcf0b7be06cea2e173d9f9118` |
+
+If these hashes don't match the ones installed from pip, remove the files
+from your device immediately and open
+[an issue on GitHub](https://github.com/B-Roux/momlib/issues). You are responsible
+for reviewing any content you download and ensuring that it meets your security
+and safety expectations.
+
 # Reference
 
 - [`momlib.linalg` - The Linear Algebra Submodule](./linalg)
