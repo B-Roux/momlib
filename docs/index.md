@@ -96,6 +96,10 @@ and safety expectations.
 
 # News
 
+- The old domain for this project (which I won't name to avoid any confusion)
+    is not being used anymore. The official home of this project is now
+    `momlib.opensource.bgeroux.com`.
+
 - The `momlib.graph` submodule is still under construction - avoid
     depending on it in cod that needs to not break in subsequent
     versions of this library!
