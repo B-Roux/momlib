@@ -1,7 +1,9 @@
 name: PyPI Release
 
+# We only really want this to happen manually
 on:
   workflow_dispatch:
+
 
 permissions:
   contents: read
@@ -11,6 +13,7 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    # Build the project
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python
@@ -24,8 +27,11 @@ jobs:
     - name: Build package 
       run: |
         python -m build
+    
+    # Publish - make sure this is using the latest version!
     - name: Publish package
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         user: __token__
         password: ${{ secrets.PYPI_API_TOKEN }}
+        print_hash: true
