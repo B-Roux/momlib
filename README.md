@@ -33,7 +33,7 @@ python -m pip install momlib
 
 # Documentation
 The main home of the documentation for this package is at 
-    [www.momlib.org](https://www.momlib.org/). You can also use the
+    [momlib.opensource.bgeroux.com](https://momlib.opensource.bgeroux.com/). You can also use the
     `help(...)` function in-code to get an in-depth look at any 
     part of this library.
 
