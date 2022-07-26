@@ -96,7 +96,7 @@ def cross(
             )
     if len(vectors) != v_len - 1:
         raise ValueError("exactly n-1 n-dimensional vectors must be given")
-    matrix = matcat(Vector([1] * v_len), *vectors, column_wise=False)
+    matrix = matcat(homogenous_vector(v_len, 1), *vectors, column_wise=False)
     return Vector(
         coefficient * determinant(matrix)
         for matrix, coefficient in laplace_expansion(matrix)
@@ -184,7 +184,7 @@ def get_vectors(
     if column_wise:
         return (Vector(col) for col in zip(*matrix))
     else:
-        return (Vector(row) for row in matrix)
+        return matrix
 
 
 def homogenous_matrix(
@@ -458,7 +458,7 @@ def orthogonalize(
                     )
                     for i in range(k)
                 ),
-                start=Vector(homogenous_vector(v_len, 0)),
+                start=homogenous_vector(v_len, 0),
             )
     except ZeroDivisionError:
         raise LinearDependenceError(

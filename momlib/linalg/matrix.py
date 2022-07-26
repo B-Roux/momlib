@@ -16,6 +16,7 @@ from types import EllipsisType
 from typing import Any, Callable, Iterable, Final
 
 from .header import DimensionMismatchError
+from .vector import Vector
 
 __all__ = ("Matrix",)
 
@@ -55,7 +56,7 @@ class Matrix:
         # Capture the data - necessary because the initializer could be
         # mutable, or a generator.
         data = tuple(
-            tuple(Fraction(item) for item in row) for row in initializer
+            Vector(Fraction(item) for item in row) for row in initializer
         )
         # Check the data shape
         if len(data) <= 0 or len(data[0]) <= 0:
@@ -65,7 +66,7 @@ class Matrix:
             if len(row) != num_of_cols:
                 raise ValueError("matrices must be rectangular (not jagged)")
         # Set instance variables
-        self._data: Final[tuple[tuple[Fraction, ...], ...]] = data
+        self._data: Final[tuple[Vector, ...]] = data
         self._shape: Final[tuple[int, int]] = (len(data), num_of_cols)
         self._hash: int | None = None
         self._iter_index: int | None = None
@@ -113,7 +114,7 @@ class Matrix:
 
     def __next__(
         self,
-    ) -> tuple[Fraction, ...]:
+    ) -> Vector:
         """
         Returns the next row of this matrix if the `__iter__` method has
             been used to initialize iteration.
