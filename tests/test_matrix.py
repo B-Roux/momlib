@@ -3,7 +3,6 @@ from fractions import Fraction
 
 from momlib.linalg import Matrix
 from momlib.linalg.header import DimensionMismatchError
-from momlib.linalg.vector import Vector
 from tests.helpers import rand_index, rand_mat, rand_num, maybe
 
 
