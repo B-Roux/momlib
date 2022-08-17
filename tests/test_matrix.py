@@ -36,8 +36,8 @@ class TestMatrix(unittest.TestCase):
     def test_iter_next(self):
         mat = Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
         self.assertEqual(
-            [i for i in mat],
-            [Vector((1, 2, 3)), Vector((4, 5, 6)), Vector((7, 8, 9))],
+            [[d for d in r] for r in mat],
+            [[1, 2, 3], [4, 5, 6], [7, 8, 9]],
         )
 
     def test_repr(self):
