@@ -21,7 +21,7 @@ Please note that the email associated with this package may not reply to
 
 setup(
     name="momlib",
-    version="0.0.4",
+    version="0.0.5",
     url="https://github.com/B-Roux/momlib",
     author="B. Roux",
     author_email="opensource@bgeroux.com",
