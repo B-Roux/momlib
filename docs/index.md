@@ -33,7 +33,7 @@ This package can be installed from the PyPI release:
 python -m pip install momlib
 ```
 
-# Verifying (Version 0.0.4)
+# Verifying (Version 0.0.5)
 
 | Tarball | Hash |
 |:--:|:--|
