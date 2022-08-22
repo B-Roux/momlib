@@ -30,7 +30,7 @@ jobs:
     
     # Publish - make sure this is using the latest version!
     - name: Publish package
-      uses: pypa/gh-action-pypi-publish@release/v1
+      uses: pypa/gh-action-pypi-publish@release/v1.5.1 #https://github.com/pypa/gh-action-pypi-publish
       with:
         user: __token__
         password: ${{ secrets.PYPI_API_TOKEN }}
