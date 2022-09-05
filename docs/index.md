@@ -53,15 +53,15 @@ If these hashes don't match the ones installed from pip, remove the files from y
 
 # Reference
 
-- [`momlib.linalg` - The Linear Algebra Submodule](./linalg)
-- [`momlib.graph` - The Graph Theory Submodule](./graph)
+- [Matrices](./matrix)
+- [Vectors](./vector)
+- [Linear Algebra](./linalg)
 
 # News
 
 - The old domain for this project (which I won't name to avoid any confusion) is not being used anymore. The official home of this project is now `momlib.opensource.bgeroux.com`.
 
-- The `momlib.graph` submodule is still under construction - avoid depending on it in cod that needs to not break in subsequent versions of this library!
-- I am planning on moving my development environment for this project to Debian, starting whenever Python 3.10 is made available on the Debian repositories. This will ensure that the most up-to-date version of this library will be compatible with the most recent Python release on Debian, as opposed to ensuring compatibility with the most recent release of Python as a whole.
+- The graph theory submodule is being indefinitely removed. I didn't like how out of place it felt in its previous implementation - perhaps in the future it will be reintroduced, but for the time being I think it is healthier for the project to address a more narrow scope of problems.
 
 # License
 
@@ -71,7 +71,7 @@ Copyright (c) 2022, B. Roux
 
 All rights reserved.
 
-Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+Redistribution and use in source and binary forms, with or without 2modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 

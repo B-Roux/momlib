@@ -18,7 +18,6 @@ Expresses the mathematical notion of a rational-valued matrix in
 - [\_\_len\_\_](#__len__)
 - [\_\_getitem\_\_](#__getitem__)
 - [\_\_iter\_\_](#__iter__)
-- [\_\_next\_\_](#__next__)
 - [\_\_str\_\_](#__str__)
 - [\_\_repr\_\_](#__repr__)
 - [\_\_matmul\_\_](#__matmul__)
@@ -34,8 +33,7 @@ Expresses the mathematical notion of a rational-valued matrix in
 - [\_\_eq\_\_](#__eq__)
 - [\_\_or\_\_](#__or__)
 - [\_\_hash\_\_](#__hash__)
-- [cat](#cat)
-- [get\_slice](#get_slice)
+- [concat](#concat)
 - [limit\_denominator](#limit_denominator)
 
 ---
@@ -71,45 +69,28 @@ Returns the total number of elements in this matrix.
 # \_\_getitem\_\_
 
 ```python
-(self, key: 'tuple[int, int]') -> 'Fraction'
+(self, key: 'tuple[int | slice, int | slice]') -> 'Fraction | Matrix'
 ```
 
-Returns the item at a specified coordinate in this matrix.
+Returns the items at specified coordinates in this matrix.
 
 Arguments
 - key: The 0-indexed row-column coordinates of the desired
-    element.
+    elements.
 
 Possible Errors
-- IndexError: If the row or column index is out of bounds.
+- IndexError: If the slice would create a matrix with zero
+    elements, or if an integer index is out of bounds.
 
 ---
 
 # \_\_iter\_\_
 
 ```python
-(self) -> 'Matrix'
+(self) -> 'Iterator[tuple[Fraction, ...]]'
 ```
 
-Initializes this matrix for iteration using the `\_\_next\_\_`
-    method.
-
----
-
-# \_\_next\_\_
-
-```python
-(self) -> 'tuple[Fraction, ...]'
-```
-
-Returns the next row of this matrix if the `\_\_iter\_\_` method has
-    been used to initialize iteration.
-
-Possible Errors
-- RuntimeError: If iteration was not properly initialized.
-
-Notes
-- Raises `StopIteration` when all rows have been iterated over.
+Returns an iterator over the rows of this matrix.
 
 ---
 
@@ -371,7 +352,7 @@ Returns the hash of this matrix.
 
 ---
 
-# cat
+# concat
 
 ```python
 (self, other: 'Matrix', horizontally: 'bool' = True) -> 'Matrix'
@@ -389,37 +370,6 @@ Arguments
 Possible Errors
 - DimensionMismatchError: If the two matrices have unequal shape
     dimensions perpendicular to the direction of concatenation.
-
----
-
-# get\_slice
-
-```python
-(self, rows: 'tuple[int | EllipsisType, int | EllipsisType] | EllipsisType | int' = Ellipsis, cols: 'tuple[int | EllipsisType, int | EllipsisType] | EllipsisType | int' = Ellipsis) -> 'Matrix'
-```
-
-Crops unselected rows and columns from this matrix and
-    returns the result.
-
-Arguments
-- rows: The rows to keep. If a tuple, this specifies the
-    starting coordinate (inclusive) followed by the ending
-    coordinate (exclusive). If an integer, this specifies a
-    single row. If ellipses, this specifies all rows.
-    Optional, defaults to ellipses. Ellipses signify either
-    "from the beginning" or "to the end" inside tuples, for
-    positions 0 and 1, respectively.
-- cols: The columns to keep. If a tuple, this specifies the
-    starting coordinate (inclusive) followed by the ending
-    coordinate (exclusive). If an integer, this specifies a
-    single column. If ellipses, this specifies all columns.
-    Optional, defaults to ellipses. Ellipses signify either
-    "from the beginning" or "to the end" inside tuples, for
-    positions 0 and 1, respectively.
-
-Possible Errors
-- IndexError: If the slice would create a matrix with zero
-    elements.
 
 ---
 

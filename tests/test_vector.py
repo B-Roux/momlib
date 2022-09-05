@@ -1,8 +1,7 @@
 import unittest
 from fractions import Fraction
 
-from momlib.linalg import Vector
-from momlib.linalg.header import DimensionMismatchError
+from momlib import Vector, DimensionMismatchError
 from tests.helpers import rand_index, rand_num, rand_vec, maybe
 
 
@@ -47,7 +46,7 @@ class TestVector(unittest.TestCase):
         vec = Vector([1, 2, 3, 4, 5, 6, 7, 8, 9, 0])
         vec1 = Vector([1, 2, 3, 4, 5, 6])
         vec2 = Vector([7, 8, 9, 0])
-        self.assertEqual(vec, vec1.cat(vec2))
+        self.assertEqual(vec, vec1.concat(vec2))
 
     def test_dot(self):
         vec1 = Vector([0, 0, 0])
@@ -58,12 +57,12 @@ class TestVector(unittest.TestCase):
 
     def test_get_slice(self):
         vec1 = rand_vec(5)
-        vec2 = vec1.get_slice((2, 4))
+        vec2 = vec1[2:4]
         for i in range(0, 2):
             self.assertEqual(vec1[i + 2], vec2[i])
-        with self.assertRaises(IndexError):
-            vec1.get_slice((2, 2))
-        self.assertEqual(vec1, vec1.get_slice((..., ...)))
+        with self.assertRaises(ValueError):
+            vec1[2:2]
+        self.assertEqual(vec1, vec1[:])
 
     def test_limit_denominator(self):
         for _ in range(10):

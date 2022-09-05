@@ -1,17 +1,12 @@
 # type: ignore
 # this is really messy and needs to be refactored
 
-from warnings import filterwarnings
-
-filterwarnings("ignore")  # Temporary - deals with graph warning
-
 import unittest
 import re
 from types import FunctionType
 from inspect import signature, Signature, _empty as inspect_empty
 
-import momlib.linalg as linalg
-import momlib.graph as graph
+import momlib
 
 
 class TestConventions(unittest.TestCase):
@@ -52,50 +47,26 @@ class TestConventions(unittest.TestCase):
                         f"in '{collection}' has illegal character \"{c}\""
                     )
 
-        # Linear Algebra
-        for name, item in linalg.Matrix.__dict__.items():
+        for name, item in momlib.Matrix.__dict__.items():
             if isinstance(item, FunctionType):
                 test_sig(
                     name,
                     signature(item),
-                    "linalg/matrix.py",
+                    "momlib/matrix.py",
                 )
-        for name, item in linalg.Vector.__dict__.items():
+        for name, item in momlib.Vector.__dict__.items():
             if isinstance(item, FunctionType):
                 test_sig(
                     name,
                     signature(item),
-                    "linalg/vector.py",
+                    "momlib/vector.py",
                 )
-        for name, item in linalg.tools.__dict__.items():
+        for name, item in momlib._linalg.__dict__.items():
             if isinstance(item, FunctionType):
                 test_sig(
                     name,
                     signature(item),
-                    "linalg/tools.py",
-                )
-
-        # Graph Theory
-        for name, item in graph.Graph.__dict__.items():
-            if isinstance(item, FunctionType):
-                test_sig(
-                    name,
-                    signature(item),
-                    "graph/graph.py",
-                )
-        for name, item in graph.DiGraph.__dict__.items():
-            if isinstance(item, FunctionType):
-                test_sig(
-                    name,
-                    signature(item),
-                    "graph/digraph.py",
-                )
-        for name, item in graph.tools.__dict__.items():
-            if isinstance(item, FunctionType):
-                test_sig(
-                    name,
-                    signature(item),
-                    "graph/tools.py",
+                    "momlib/tools.py",
                 )
 
     def test_function_docstrings(self):
@@ -147,50 +118,26 @@ class TestConventions(unittest.TestCase):
                     f"in '{collection}' has no docstring.",
                 )
 
-        # Linear Algebra
-        for name, item in linalg.Matrix.__dict__.items():
+        for name, item in momlib.Matrix.__dict__.items():
             if isinstance(item, FunctionType):
                 test_doc(
                     name,
                     item.__doc__,
-                    "linalg/matrix.py",
+                    "momlib/matrix.py",
                 )
-        for name, item in linalg.Vector.__dict__.items():
+        for name, item in momlib.Vector.__dict__.items():
             if isinstance(item, FunctionType):
                 test_doc(
                     name,
                     item.__doc__,
-                    "linalg/vector.py",
+                    "momlib/vector.py",
                 )
-        for name, item in linalg.tools.__dict__.items():
+        for name, item in momlib._linalg.__dict__.items():
             if isinstance(item, FunctionType):
                 test_doc(
                     name,
                     item.__doc__,
-                    "linalg/tools.py",
-                )
-
-        # Graph Theory
-        for name, item in graph.Graph.__dict__.items():
-            if isinstance(item, FunctionType):
-                test_doc(
-                    name,
-                    item.__doc__,
-                    "graph/graph.py",
-                )
-        for name, item in graph.DiGraph.__dict__.items():
-            if isinstance(item, FunctionType):
-                test_doc(
-                    name,
-                    item.__doc__,
-                    "graph/digraph.py",
-                )
-        for name, item in graph.tools.__dict__.items():
-            if isinstance(item, FunctionType):
-                test_doc(
-                    name,
-                    item.__doc__,
-                    "graph/tools.py",
+                    "momlib/tools.py",
                 )
 
 

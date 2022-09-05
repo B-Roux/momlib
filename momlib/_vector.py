@@ -5,22 +5,35 @@ Implements the `Vector` class (see `help(Vector)`).
 from __future__ import annotations
 
 from fractions import Fraction
-from itertools import chain, islice
+from itertools import chain
 from operator import (
     mul as mul_operator,
     truediv as truediv_operator,
     add as add_operator,
     sub as sub_operator,
 )
-from types import EllipsisType
-from typing import Any, Callable, Iterable, Final
+from typing import (
+    Any,
+    Callable,
+    Iterable,
+    Final,
+    Iterator,
+    overload,
+)
+from collections.abc import (
+    Hashable as HashableABC,
+    Sequence as SequenceABC,
+)
 
-from .header import DimensionMismatchError
+from ._errors import DimensionMismatchError
 
 __all__ = ("Vector",)
 
 
-class Vector:
+class Vector(
+    HashableABC,
+    SequenceABC[Fraction],
+):
     """
     Expresses the mathematical notion of a rational-valued Vector in
         native Python datastructures and datatypes while providing an
@@ -35,7 +48,11 @@ class Vector:
         `vector_instance.elements` property.
     """
 
-    __slots__ = ("_data", "_length", "_hash", "_iter_index")
+    __slots__ = (
+        "_data",
+        "_length",
+        "_hash",
+    )
 
     def __init__(
         self,
@@ -57,7 +74,6 @@ class Vector:
         self._data: Final[tuple[Fraction, ...]] = data
         self._length: Final[int] = len(data)
         self._hash: int | None = None
-        self._iter_index: int | None = None
 
     def __len__(
         self,
@@ -67,21 +83,33 @@ class Vector:
         """
         return self._length
 
+    @overload
+    def __getitem__(self, key: int) -> Fraction:
+        ...
+
+    @overload
+    def __getitem__(self, key: slice) -> Vector:
+        ...
+
     def __getitem__(
         self,
-        key: int,
-    ) -> Fraction:
+        key: int | slice,
+    ) -> Fraction | Vector:
         """
-        Returns a copy of the item at a given position.
+        Returns a copy of the items at given positions.
 
         Arguments
-        - key: The 0-indexed position of the desired element.
+        - key: The 0-indexed position of the desired elements.
 
         Possible Errors
-        - IndexError: If the key index is out of bounds.
+        - IndexError: If the slice would create a vector with zero
+            elements, or if an integer index is out of bounds.
         """
         try:
-            return self._data[key]
+            if isinstance(key, int):
+                return self._data[key]
+            else:
+                return Vector(self._data[key])
         except IndexError:
             raise IndexError(
                 f"index out of bounds, expected index in "
@@ -90,36 +118,11 @@ class Vector:
 
     def __iter__(
         self,
-    ) -> Vector:
+    ) -> Iterator[Fraction]:
         """
-        Initializes this vector for iteration using the `__next__`
-        method.
+        Returns an iterator over the items of this vector.
         """
-        self._iter_index = 0
-        return self
-
-    def __next__(
-        self,
-    ) -> Fraction:
-        """
-        Returns the next item in a row-wise traversal of this vector
-            if the `__iter__` method has been used to initialize
-            iteration.
-
-        Possible Errors
-        - RuntimeError: If iteration was not properly initialized.
-
-        Notes
-        - Raises `StopIteration` when all items have been iterated over.
-        """
-        if self._iter_index is None:
-            raise RuntimeError("iterator not initialized")
-        if self._iter_index >= self._length:
-            self._iter_index = None
-            raise StopIteration
-        result = self._data[self._iter_index]
-        self._iter_index += 1
-        return result
+        return self._data.__iter__()
 
     def __str__(
         self,
@@ -360,7 +363,7 @@ class Vector:
         if length != other._length:
             return False
         for i in range(length):
-            if self[i] != other[i]:
+            if self._data[i] != other._data[i]:
                 return False
         return True
 
@@ -374,7 +377,7 @@ class Vector:
             self._hash = hash(self._data)
         return self._hash
 
-    def cat(
+    def concat(
         self,
         other: Vector | float | Fraction,
     ) -> Vector:
@@ -390,40 +393,9 @@ class Vector:
             lengths.
         """
         if isinstance(other, Vector):
-            return Vector(chain(self, other))
+            return Vector(chain(iter(self), iter(other)))
         else:
-            return Vector(chain(self, [other]))
-
-    def get_slice(
-        self,
-        items: tuple[int | EllipsisType, int | EllipsisType],
-    ) -> Vector:
-        """
-        Crops unselected elements from this vector and returns the
-            result.
-
-        Arguments
-        - items: The range of elements to keep. This specifies the
-            starting coordinate (inclusive) followed by the ending
-            coordinate (exclusive). Ellipses signify either "from the
-            beginning" or "to the end" inside tuples, for positions 0
-            and 1, respectively.
-
-        Possible Errors
-        - IndexError: If the slice would create a vector with zero
-            elements.
-        """
-        items = (
-            0 if isinstance(items[0], EllipsisType) else max(items[0], 0),
-            (
-                self._length
-                if isinstance(items[1], EllipsisType)
-                else min(items[1], self._length)
-            ),
-        )
-        if items[0] >= items[1]:
-            raise IndexError("vectors must have at least one element")
-        return Vector(islice(self._data, *items))
+            return Vector(chain(iter(self), [other]))
 
     def limit_denominator(
         self,
@@ -539,7 +511,7 @@ class Vector:
             f"\u27E8 "
             + ", ".join(
                 (
-                    format_as_str(self[element], element)
+                    format_as_str(self._data[element], element)
                     for element in range(min(self._length, max_elements + 1))
                 )
             )

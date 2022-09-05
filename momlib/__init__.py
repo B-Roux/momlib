@@ -25,3 +25,57 @@ Please note that this library is currently in version 0.0.x meaning
     often. As soon as version 0.1.0 is released, you should in most
     cases be able to expect some consistency. I hope this comes soon!
 """
+
+
+from ._errors import (
+    LinearDependenceError,
+    RectangularMatrixError,
+    DimensionMismatchError,
+)
+from ._matrix import Matrix
+from ._vector import Vector
+from ._linalg import (
+    cross,
+    determinant,
+    distance,
+    get_vectors,
+    homogenous_matrix,
+    homogenous_vector,
+    identity,
+    inverse,
+    laplace_expansion,
+    magnitude,
+    matcat,
+    matrix_power,
+    normalize,
+    orthogonalize,
+    rank,
+    row_reduce,
+    transpose,
+)
+
+__all__ = (
+    "LinearDependenceError",
+    "RectangularMatrixError",
+    "DimensionMismatchError",
+    "Matrix",
+    "Vector",
+    "cross",
+    "determinant",
+    "distance",
+    "get_vectors",
+    "homogenous_matrix",
+    "homogenous_vector",
+    "identity",
+    "inverse",
+    "laplace_expansion",
+    "magnitude",
+    "matcat",
+    "matrix_power",
+    "normalize",
+    "orthogonalize",
+    "cross",
+    "rank",
+    "row_reduce",
+    "transpose",
+)

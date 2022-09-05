@@ -5,22 +5,35 @@ Implements the `Matrix` class (see `help(Matrix)`).
 from __future__ import annotations
 
 from fractions import Fraction
-from itertools import chain, islice
+from itertools import chain
 from operator import (
     mul as mul_operator,
     truediv as truediv_operator,
     add as add_operator,
     sub as sub_operator,
 )
-from types import EllipsisType
-from typing import Any, Callable, Iterable, Final
+from typing import (
+    Any,
+    Callable,
+    Iterable,
+    Final,
+    Iterator,
+    overload,
+)
+from collections.abc import (
+    Hashable as HashableABC,
+    Sequence as SequenceABC,
+)
 
-from .header import DimensionMismatchError
+from ._errors import DimensionMismatchError
 
 __all__ = ("Matrix",)
 
 
-class Matrix:
+class Matrix(
+    HashableABC,
+    SequenceABC[tuple[Fraction, ...]],
+):
     """
     Expresses the mathematical notion of a rational-valued matrix in
         native Python datastructures and datatypes while providing an
@@ -35,7 +48,11 @@ class Matrix:
         `matrix_instance.elements` property.
     """
 
-    __slots__ = ("_data", "_shape", "_hash", "_iter_index")
+    __slots__ = (
+        "_data",
+        "_shape",
+        "_hash",
+    )
 
     def __init__(
         self,
@@ -68,7 +85,6 @@ class Matrix:
         self._data: Final[tuple[tuple[Fraction, ...], ...]] = data
         self._shape: Final[tuple[int, int]] = (len(data), num_of_cols)
         self._hash: int | None = None
-        self._iter_index: int | None = None
 
     def __len__(
         self,
@@ -78,22 +94,51 @@ class Matrix:
         """
         return self._shape[0] * self._shape[1]
 
+    @overload
+    def __getitem__(self, key: tuple[int, int]) -> Fraction:
+        ...
+
+    @overload
     def __getitem__(
-        self,
-        key: tuple[int, int],
-    ) -> Fraction:
+        self, key: tuple[slice, int] | tuple[int, slice] | tuple[slice, slice]
+    ) -> Matrix:
+        ...
+
+    def __getitem__(
+        self, key: tuple[int | slice, int | slice]
+    ) -> Fraction | Matrix:
         """
-        Returns the item at a specified coordinate in this matrix.
+        Returns the items at specified coordinates in this matrix.
 
         Arguments
         - key: The 0-indexed row-column coordinates of the desired
-            element.
+            elements.
 
         Possible Errors
-        - IndexError: If the row or column index is out of bounds.
+        - IndexError: If the slice would create a matrix with zero
+            elements, or if an integer index is out of bounds.
         """
+        key_r = key[0]
+        key_c = key[1]
         try:
-            return self._data[key[0]][key[1]]
+            if isinstance(key_r, int) and isinstance(key_c, int):
+                return self._data[key_r][key_c]
+            else:
+                if isinstance(key_r, int):
+                    key_r = (key_r, key_r + 1)
+                else:
+                    key_r = key_r.indices(self._shape[0])
+
+                if isinstance(key_c, int):
+                    key_c = (key_c, key_c + 1)
+                else:
+                    key_c = key_c.indices(self._shape[1])
+
+                return Matrix(
+                    (self._data[r][c] for c in range(*key_c))
+                    for r in range(*key_r)
+                )
+
         except IndexError:
             raise IndexError(
                 f"index out of bounds, expected index in "
@@ -103,35 +148,11 @@ class Matrix:
 
     def __iter__(
         self,
-    ) -> Matrix:
+    ) -> Iterator[tuple[Fraction, ...]]:
         """
-        Initializes this matrix for iteration using the `__next__`
-            method.
+        Returns an iterator over the rows of this matrix.
         """
-        self._iter_index = 0
-        return self
-
-    def __next__(
-        self,
-    ) -> tuple[Fraction, ...]:
-        """
-        Returns the next row of this matrix if the `__iter__` method has
-            been used to initialize iteration.
-
-        Possible Errors
-        - RuntimeError: If iteration was not properly initialized.
-
-        Notes
-        - Raises `StopIteration` when all rows have been iterated over.
-        """
-        if self._iter_index is None:
-            raise RuntimeError("iterator not initialized (use 'iter')")
-        if self._iter_index >= self._shape[0]:
-            self._iter_index = None
-            raise StopIteration
-        result = self._data[self._iter_index]
-        self._iter_index += 1
-        return result
+        return self._data.__iter__()
 
     def __str__(
         self,
@@ -191,7 +212,12 @@ class Matrix:
             )
         return Matrix(
             (
-                sum((self[row, i] * other[i, col] for i in range(inner_dim)))
+                sum(
+                    (
+                        self._data[row][i] * other._data[i][col]
+                        for i in range(inner_dim)
+                    )
+                )
                 for col in range(other._shape[1])
             )
             for row in range(self._shape[0])
@@ -399,7 +425,7 @@ class Matrix:
         - DimensionMismatchError: If the two matrices have unequal row
             counts.
         """
-        return self.cat(other, horizontally=True)
+        return self.concat(other, horizontally=True)
 
     def __hash__(
         self,
@@ -411,7 +437,7 @@ class Matrix:
             self._hash = hash(self._data)
         return self._hash
 
-    def cat(
+    def concat(
         self,
         other: Matrix,
         horizontally: bool = True,
@@ -452,70 +478,6 @@ class Matrix:
                 )
             return Matrix(chain(self._data, other._data))
 
-    def get_slice(
-        self,
-        rows: tuple[int | EllipsisType, int | EllipsisType]
-        | EllipsisType
-        | int = ...,
-        cols: tuple[int | EllipsisType, int | EllipsisType]
-        | EllipsisType
-        | int = ...,
-    ) -> Matrix:
-        """
-        Crops unselected rows and columns from this matrix and
-            returns the result.
-
-        Arguments
-        - rows: The rows to keep. If a tuple, this specifies the
-            starting coordinate (inclusive) followed by the ending
-            coordinate (exclusive). If an integer, this specifies a
-            single row. If ellipses, this specifies all rows.
-            Optional, defaults to ellipses. Ellipses signify either
-            "from the beginning" or "to the end" inside tuples, for
-            positions 0 and 1, respectively.
-        - cols: The columns to keep. If a tuple, this specifies the
-            starting coordinate (inclusive) followed by the ending
-            coordinate (exclusive). If an integer, this specifies a
-            single column. If ellipses, this specifies all columns.
-            Optional, defaults to ellipses. Ellipses signify either
-            "from the beginning" or "to the end" inside tuples, for
-            positions 0 and 1, respectively.
-
-        Possible Errors
-        - IndexError: If the slice would create a matrix with zero
-            elements.
-        """
-        if isinstance(rows, EllipsisType):
-            rows = (0, self._shape[0])
-        elif isinstance(rows, int):
-            rows = (rows, rows + 1)
-        if isinstance(cols, EllipsisType):
-            cols = (0, self._shape[1])
-        elif isinstance(cols, int):
-            cols = (cols, cols + 1)
-        rows = (
-            0 if isinstance(rows[0], EllipsisType) else max(rows[0], 0),
-            (
-                self._shape[0]
-                if isinstance(rows[1], EllipsisType)
-                else min(rows[1], self._shape[0])
-            ),
-        )
-        cols = (
-            0 if isinstance(cols[0], EllipsisType) else max(cols[0], 0),
-            (
-                self._shape[1]
-                if isinstance(cols[1], EllipsisType)
-                else min(cols[1], self._shape[1])
-            ),
-        )
-        if rows[0] >= rows[1] or cols[0] >= cols[1]:
-            raise IndexError("matrices must have at least one element")
-
-        return Matrix(
-            (islice(row, *cols) for row in islice(self._data, *rows))
-        )
-
     def limit_denominator(
         self,
         max_denominator: int,
@@ -548,7 +510,7 @@ class Matrix:
         self,
     ) -> Iterable[Fraction]:
         for i in range(min(self._shape)):
-            yield self[i, i]
+            yield self._data[i][i]
 
     @property
     def elements(
@@ -665,7 +627,7 @@ class Matrix:
 
         element_strs = [
             [
-                format_to_str(self[row, col], row, col)
+                format_to_str(self._data[row][col], row, col)
                 for col in range(min(self._shape[1], max_cols + 1))
             ]
             for row in range(min(self._shape[0], max_rows + 1))

@@ -1,8 +1,7 @@
 import unittest
 from fractions import Fraction
 
-from momlib.linalg import Matrix
-from momlib.linalg.header import DimensionMismatchError
+from momlib import Matrix, DimensionMismatchError
 from tests.helpers import rand_index, rand_mat, rand_num, maybe
 
 
@@ -63,17 +62,16 @@ class TestMatrix(unittest.TestCase):
         mat4 = Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
         mat5 = Matrix([[1, 2, 3], [4, 5, 6]])
         mat6 = Matrix([[7, 8, 9]])
-        self.assertEqual(mat5.cat(mat6, horizontally=False), mat4)
+        self.assertEqual(mat5.concat(mat6, horizontally=False), mat4)
 
     def test_get_slice(self):
         mat1 = rand_mat(3, 3)
-        mat2 = mat1.get_slice((0, 2), (0, 2))
+        mat2 = mat1[0:2, 0:2]
         for i in range(2):
             self.assertEqual(mat1[i, i], mat2[i, i])
-        self.assertEqual(mat1, mat1.get_slice(..., ...))
-        self.assertEqual(mat1, mat1.get_slice((..., ...), ...))
-        self.assertEqual(mat1, mat1.get_slice(..., (..., ...)))
-        self.assertEqual(mat1, mat1.get_slice((..., ...), (..., ...)))
+        with self.assertRaises(ValueError):
+            mat1[2:2, 2:2]
+        self.assertEqual(mat1, mat1[:, :])
 
     def test_limit_denominator(self):
         for _ in range(10):

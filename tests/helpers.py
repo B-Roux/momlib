@@ -2,7 +2,7 @@ import random
 import time
 from fractions import Fraction
 
-from momlib.linalg import Matrix, Vector
+from momlib import Matrix, Vector
 
 random.seed(time.time_ns())
 

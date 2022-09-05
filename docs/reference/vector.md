@@ -18,7 +18,6 @@ Expresses the mathematical notion of a rational-valued Vector in
 - [\_\_len\_\_](#__len__)
 - [\_\_getitem\_\_](#__getitem__)
 - [\_\_iter\_\_](#__iter__)
-- [\_\_next\_\_](#__next__)
 - [\_\_str\_\_](#__str__)
 - [\_\_repr\_\_](#__repr__)
 - [\_\_matmul\_\_](#__matmul__)
@@ -33,8 +32,7 @@ Expresses the mathematical notion of a rational-valued Vector in
 - [\_\_neg\_\_](#__neg__)
 - [\_\_eq\_\_](#__eq__)
 - [\_\_hash\_\_](#__hash__)
-- [cat](#cat)
-- [get\_slice](#get_slice)
+- [concat](#concat)
 - [limit\_denominator](#limit_denominator)
 
 ---
@@ -69,45 +67,27 @@ Returns the total number of elements in this vector.
 # \_\_getitem\_\_
 
 ```python
-(self, key: 'int') -> 'Fraction'
+(self, key: 'int | slice') -> 'Fraction | Vector'
 ```
 
-Returns a copy of the item at a given position.
+Returns a copy of the items at given positions.
 
 Arguments
-- key: The 0-indexed position of the desired element.
+- key: The 0-indexed position of the desired elements.
 
 Possible Errors
-- IndexError: If the key index is out of bounds.
+- IndexError: If the slice would create a vector with zero
+    elements, or if an integer index is out of bounds.
 
 ---
 
 # \_\_iter\_\_
 
 ```python
-(self) -> 'Vector'
+(self) -> 'Iterator[Fraction]'
 ```
 
-Initializes this vector for iteration using the `\_\_next\_\_`
-method.
-
----
-
-# \_\_next\_\_
-
-```python
-(self) -> 'Fraction'
-```
-
-Returns the next item in a row-wise traversal of this vector
-    if the `\_\_iter\_\_` method has been used to initialize
-    iteration.
-
-Possible Errors
-- RuntimeError: If iteration was not properly initialized.
-
-Notes
-- Raises `StopIteration` when all items have been iterated over.
+Returns an iterator over the items of this vector.
 
 ---
 
@@ -349,7 +329,7 @@ Returns the hash of this vector.
 
 ---
 
-# cat
+# concat
 
 ```python
 (self, other: 'Vector | float | Fraction') -> 'Vector'
@@ -364,28 +344,6 @@ Arguments
 Possible Errors
 - DimensionMismatchError: If the two vectors have unequal
     lengths.
-
----
-
-# get\_slice
-
-```python
-(self, items: 'tuple[int | EllipsisType, int | EllipsisType]') -> 'Vector'
-```
-
-Crops unselected elements from this vector and returns the
-    result.
-
-Arguments
-- items: The range of elements to keep. This specifies the
-    starting coordinate (inclusive) followed by the ending
-    coordinate (exclusive). Ellipses signify either "from the
-    beginning" or "to the end" inside tuples, for positions 0
-    and 1, respectively.
-
-Possible Errors
-- IndexError: If the slice would create a vector with zero
-    elements.
 
 ---
 

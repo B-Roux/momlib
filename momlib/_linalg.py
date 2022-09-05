@@ -11,13 +11,13 @@ from typing import Iterable
 from functools import reduce
 from operator import mul as mul_operator
 
-from .header import (
+from ._errors import (
     DimensionMismatchError,
     LinearDependenceError,
     RectangularMatrixError,
 )
-from .matrix import Matrix
-from .vector import Vector
+from ._matrix import Matrix
+from ._vector import Vector
 
 __all__ = (
     "cross",
@@ -182,9 +182,9 @@ def get_vectors(
         Optional, defaults to true.
     """
     if column_wise:
-        return (Vector(col) for col in zip(*matrix))
+        return (Vector(col) for col in zip(*iter(matrix)))
     else:
-        return matrix
+        return (Vector(col) for col in matrix)
 
 
 def homogenous_matrix(
@@ -264,7 +264,7 @@ def inverse(
             f"({matrix.shape[0]},{matrix.shape[1]})"
         )
     reduction = row_reduce(matrix | identity(side_len))
-    inversion = reduction.get_slice(cols=(side_len, ...))
+    inversion = reduction[:, side_len:]
     for i in reduction.diagonal:
         if i != Fraction(1):
             raise LinearDependenceError(

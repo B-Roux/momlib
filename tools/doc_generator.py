@@ -1,6 +1,5 @@
 from typing import Literal
-import momlib.linalg
-import momlib.graph
+import momlib
 from types import FunctionType, ModuleType
 from inspect import signature, cleandoc
 
@@ -49,31 +48,18 @@ def gen_doc(input: ModuleType | object):
 
 
 def main():
-    PATH = "./docs/"
-    LINALG_PATH = PATH + "linalg/"
-    GRAPH_PATH = PATH + "graph/"
+    PATH = "./docs/reference/"
 
     # Linear Algebra
-    with open(LINALG_PATH + "matrix.md", "w") as f:
+    with open(PATH + "matrix.md", "w") as f:
         print("# Matrix Object Instance Methods", file=f)
-        print(gen_doc(momlib.linalg.Matrix), file=f)
-    with open(LINALG_PATH + "vector.md", "w") as f:
+        print(gen_doc(momlib.Matrix), file=f)
+    with open(PATH + "vector.md", "w") as f:
         print("# Vector Object Instance Methods", file=f)
-        print(gen_doc(momlib.linalg.Vector), file=f)
-    with open(LINALG_PATH + "tools.md", "w") as f:
+        print(gen_doc(momlib.Vector), file=f)
+    with open(PATH + "linalg.md", "w") as f:
         print("# Linear Algebra Tools", file=f)
-        print(gen_doc(momlib.linalg.tools), file=f)
-
-    # Graph Theory
-    with open(GRAPH_PATH + "graph.md", "w") as f:
-        print("# Graph Object Instance Methods", file=f)
-        print(gen_doc(momlib.graph.Graph), file=f)
-    with open(GRAPH_PATH + "digraph.md", "w") as f:
-        print("# DiGraph Object Instance Methods", file=f)
-        print(gen_doc(momlib.graph.DiGraph), file=f)
-    with open(GRAPH_PATH + "tools.md", "w") as f:
-        print("# Graph Theory Tools", file=f)
-        print(gen_doc(momlib.graph.tools), file=f)
+        print(gen_doc(momlib._linalg), file=f)  # type: ignore
 
 
 if __name__ == "__main__":
