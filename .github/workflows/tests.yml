@@ -10,7 +10,7 @@ on:
 
   # Schedule testing every dat at 00:00 UTC (~6pm CST)
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "0 0 */7 * *"
 
 jobs:
   build:
