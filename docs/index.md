@@ -53,9 +53,9 @@ If these hashes don't match the ones installed from pip, remove the files from y
 
 # Reference
 
-- [Matrices](./matrix)
-- [Vectors](./vector)
-- [Linear Algebra](./linalg)
+- [Matrices](./reference/matrix)
+- [Vectors](./reference/vector)
+- [Linear Algebra](./reference/linalg)
 
 # News
 
