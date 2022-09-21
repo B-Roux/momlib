@@ -14,7 +14,7 @@ def gen_doc(input: ModuleType | object):
         ):
             contents.append(
                 {
-                    "name": name.replace("_", "\\_"),
+                    "name": name,
                     "sig": str(signature(item)),
                     "doc": cleandoc(
                         item.__doc__ if item.__doc__ is not None else ""
@@ -35,7 +35,7 @@ def gen_doc(input: ModuleType | object):
         + "\n\n---\n\n".join(
             (
                 "# "
-                + i["name"]
+                + i["name"].replace("_", "\\_")
                 + "\n\n"
                 + f"```python\n{i['sig']}\n```\n\n{i['doc']}"
             )
