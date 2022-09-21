@@ -64,14 +64,6 @@ class TestVector(unittest.TestCase):
             vec1[2:2]
         self.assertEqual(vec1, vec1[:])
 
-    def test_limit_denominator(self):
-        for _ in range(10):
-            length = rand_index()
-            vec1 = rand_vec(length)
-            vec1_lim = vec1.limit_denominator(10)
-            for i in range(length):
-                self.assertLessEqual(vec1_lim[i].denominator, 10)
-
     def test_multiply(self):
         for _ in range(10):
             length = rand_index()

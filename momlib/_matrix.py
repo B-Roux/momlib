@@ -95,17 +95,22 @@ class Matrix(
         return self._shape[0] * self._shape[1]
 
     @overload
-    def __getitem__(self, key: tuple[int, int]) -> Fraction:
+    def __getitem__(
+        self,
+        key: tuple[int, int],
+    ) -> Fraction:
         ...
 
     @overload
     def __getitem__(
-        self, key: tuple[slice, int] | tuple[int, slice] | tuple[slice, slice]
+        self,
+        key: tuple[slice, int] | tuple[int, slice] | tuple[slice, slice],
     ) -> Matrix:
         ...
 
     def __getitem__(
-        self, key: tuple[int | slice, int | slice]
+        self,
+        key: tuple[int | slice, int | slice],
     ) -> Fraction | Matrix:
         """
         Returns the items at specified coordinates in this matrix.
@@ -202,6 +207,8 @@ class Matrix(
         - DimensionMismatchError: If the column count of `self` does not
             match the row count of `other`.
         """
+        if not isinstance(other, Matrix):  # type: ignore
+            return NotImplemented
         inner_dim = self._shape[1]
         if inner_dim != other._shape[0]:
             raise DimensionMismatchError(
@@ -242,6 +249,11 @@ class Matrix(
         - To calculate the matrix product of two matrices, use the
             `__matmul__` (at-sign) operator.
         """
+        if not isinstance(
+            other,
+            (Matrix, int, float, Fraction),
+        ):  # type: ignore
+            return NotImplemented
         return self._elwise_operate(other, True, mul_operator)
 
     def __rmul__(
@@ -264,6 +276,11 @@ class Matrix(
         - To calculate the matrix product of two matrices, use the
             `__matmul__` (at-sign) operator.
         """
+        if not isinstance(
+            other,
+            (Matrix, int, float, Fraction),
+        ):  # type: ignore
+            return NotImplemented
         return self._elwise_operate(other, False, mul_operator)
 
     def __truediv__(
@@ -283,6 +300,11 @@ class Matrix(
         - ZeroDivisionError: If `other` is zero, or is a matrix that
             contains a zero anywhere.
         """
+        if not isinstance(
+            other,
+            (Matrix, int, float, Fraction),
+        ):  # type: ignore
+            return NotImplemented
         return self._elwise_operate(other, True, truediv_operator)
 
     def __rtruediv__(
@@ -303,6 +325,11 @@ class Matrix(
         - ZeroDivisionError: If `other` is zero, or is a matrix that
             contains a zero anywhere.
         """
+        if not isinstance(
+            other,
+            (Matrix, int, float, Fraction),
+        ):  # type: ignore
+            return NotImplemented
         return self._elwise_operate(other, False, truediv_operator)
 
     def __add__(
@@ -320,6 +347,11 @@ class Matrix(
         - DimensionMismatchError: If `other` is a Matrix and does not
             have the required shape.
         """
+        if not isinstance(
+            other,
+            (Matrix, int, float, Fraction),
+        ):  # type: ignore
+            return NotImplemented
         return self._elwise_operate(other, True, add_operator)
 
     def __radd__(
@@ -338,6 +370,11 @@ class Matrix(
         - DimensionMismatchError: If `other` is a Matrix and does not
             have the required shape.
         """
+        if not isinstance(
+            other,
+            (Matrix, int, float, Fraction),
+        ):  # type: ignore
+            return NotImplemented
         return self._elwise_operate(other, False, add_operator)
 
     def __sub__(
@@ -355,6 +392,11 @@ class Matrix(
         - DimensionMismatchError: If `other` is a Matrix and does not
             have the required shape.
         """
+        if not isinstance(
+            other,
+            (Matrix, int, float, Fraction),
+        ):  # type: ignore
+            return NotImplemented
         return self._elwise_operate(other, True, sub_operator)
 
     def __rsub__(
@@ -373,6 +415,11 @@ class Matrix(
         - DimensionMismatchError: If `other` is a Matrix and does not
             have the required shape.
         """
+        if not isinstance(
+            other,
+            (Matrix, int, float, Fraction),
+        ):  # type: ignore
+            return NotImplemented
         return self._elwise_operate(other, False, sub_operator)
 
     def __neg__(
@@ -398,7 +445,7 @@ class Matrix(
         - other: The object this vector is to be compared to.
         """
         if not isinstance(other, Matrix):
-            return False
+            return NotImplemented
         if self._hash is not None and other._hash is not None:
             if hash(self) != hash(other):
                 return False
@@ -425,6 +472,8 @@ class Matrix(
         - DimensionMismatchError: If the two matrices have unequal row
             counts.
         """
+        if not isinstance(other, Matrix):  # type: ignore
+            return NotImplemented
         return self.concat(other, horizontally=True)
 
     def __hash__(
@@ -477,31 +526,6 @@ class Matrix(
                     "cannot append rows"
                 )
             return Matrix(chain(self._data, other._data))
-
-    def limit_denominator(
-        self,
-        max_denominator: int,
-    ) -> Matrix:
-        """
-        Limits the denominator of all `Fraction` objects in this
-            matrix to some upper bound.
-
-        Arguments
-        - max_denominator: The largest allowed denominator.
-
-        Possible Errors
-        - ZeroDivisionError: If `max_denominator` is 0.
-        """
-        if max_denominator == 0:
-            raise ZeroDivisionError("max denominator may not be 0")
-        return Matrix(
-            (
-                (
-                    (item.limit_denominator(max_denominator) for item in row)
-                    for row in self._data
-                )
-            )
-        )
 
     # PROPERTIES
 

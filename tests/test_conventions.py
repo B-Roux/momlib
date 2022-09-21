@@ -1,5 +1,8 @@
 # type: ignore
-# this is really messy and needs to be refactored
+
+# This file should be removed at some point (because it's quite
+# terrible), but for the time being it is useful to make sure everything
+# passes.
 
 import unittest
 import re
@@ -48,25 +51,25 @@ class TestConventions(unittest.TestCase):
                     )
 
         for name, item in momlib.Matrix.__dict__.items():
-            if isinstance(item, FunctionType):
+            if isinstance(item, FunctionType) and name != "overload":
                 test_sig(
                     name,
                     signature(item),
-                    "momlib/matrix.py",
+                    "momlib/_matrix.py",
                 )
         for name, item in momlib.Vector.__dict__.items():
-            if isinstance(item, FunctionType):
+            if isinstance(item, FunctionType) and name != "overload":
                 test_sig(
                     name,
                     signature(item),
-                    "momlib/vector.py",
+                    "momlib/_vector.py",
                 )
         for name, item in momlib._linalg.__dict__.items():
-            if isinstance(item, FunctionType):
+            if isinstance(item, FunctionType) and name != "overload":
                 test_sig(
                     name,
                     signature(item),
-                    "momlib/tools.py",
+                    "momlib/_linalg.py",
                 )
 
     def test_function_docstrings(self):
@@ -119,25 +122,25 @@ class TestConventions(unittest.TestCase):
                 )
 
         for name, item in momlib.Matrix.__dict__.items():
-            if isinstance(item, FunctionType):
+            if isinstance(item, FunctionType) and name != "overload":
                 test_doc(
                     name,
                     item.__doc__,
-                    "momlib/matrix.py",
+                    "momlib/_matrix.py",
                 )
         for name, item in momlib.Vector.__dict__.items():
-            if isinstance(item, FunctionType):
+            if isinstance(item, FunctionType) and name != "overload":
                 test_doc(
                     name,
                     item.__doc__,
-                    "momlib/vector.py",
+                    "momlib/_vector.py",
                 )
         for name, item in momlib._linalg.__dict__.items():
-            if isinstance(item, FunctionType):
+            if isinstance(item, FunctionType) and name != "overload":
                 test_doc(
                     name,
                     item.__doc__,
-                    "momlib/tools.py",
+                    "momlib/_linalg.py",
                 )
 
 

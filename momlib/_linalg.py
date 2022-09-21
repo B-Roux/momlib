@@ -7,7 +7,7 @@ from __future__ import annotations
 
 from fractions import Fraction
 from math import sqrt, acos
-from typing import Iterable
+from typing import Iterable, overload
 from functools import reduce
 from operator import mul as mul_operator
 
@@ -24,11 +24,11 @@ __all__ = (
     "determinant",
     "distance",
     "get_vectors",
-    "homogenous_matrix",
-    "homogenous_vector",
+    "homogenous",
     "identity",
     "inverse",
     "laplace_expansion",
+    "limit_denominator",
     "magnitude",
     "matcat",
     "matrix_power",
@@ -96,7 +96,7 @@ def cross(
             )
     if len(vectors) != v_len - 1:
         raise ValueError("exactly n-1 n-dimensional vectors must be given")
-    matrix = matcat(homogenous_vector(v_len, 1), *vectors, column_wise=False)
+    matrix = matcat(homogenous(v_len, 1), *vectors, column_wise=False)
     return Vector(
         coefficient * determinant(matrix)
         for matrix, coefficient in laplace_expansion(matrix)
@@ -187,10 +187,26 @@ def get_vectors(
         return (Vector(col) for col in matrix)
 
 
-def homogenous_matrix(
-    shape: tuple[int, int] | int,
+@overload
+def homogenous(
+    shape: tuple[int, int],
     value: float | Fraction = 0,
 ) -> Matrix:
+    ...
+
+
+@overload
+def homogenous(
+    shape: int,
+    value: float | Fraction = 0,
+) -> Vector:
+    ...
+
+
+def homogenous(
+    shape: tuple[int, int] | int,
+    value: float | Fraction = 0,
+) -> Vector | Matrix:
     """
     Matrix constructor that creates a matrix of a given shape which has
         all elements equal to one another.
@@ -202,25 +218,12 @@ def homogenous_matrix(
     - value: The value with which to fill the matrix.
         Optional, defaults to 0.
     """
-    if isinstance(shape, int):
-        shape = (shape, shape)
-    return Matrix((value for _ in range(shape[1])) for _ in range(shape[0]))
-
-
-def homogenous_vector(
-    length: int,
-    value: float | Fraction = 0,
-) -> Vector:
-    """
-    Vector constructor that creates a vector of a given length which has
-        all elements equal to one another.
-
-    Arguments
-    - length: The length of the desired vector.
-    - value: The value with which to fill the vector.
-        Optional, defaults to 0.
-    """
-    return Vector(value for _ in range(length))
+    if isinstance(shape, tuple):
+        return Matrix(
+            (value for _ in range(shape[1])) for _ in range(shape[0])
+        )
+    else:  # if isinstance(shape, int):
+        return Vector(value for _ in range(shape))
 
 
 def identity(
@@ -305,6 +308,52 @@ def laplace_expansion(
             ),
             (1 if i % 2 == 0 else -1) * matrix[0, i],
         )
+
+
+@overload
+def limit_denominator(
+    arg: Vector,
+    max_denominator: int,
+) -> Vector:
+    ...
+
+
+@overload
+def limit_denominator(
+    arg: Matrix,
+    max_denominator: int,
+) -> Matrix:
+    ...
+
+
+def limit_denominator(
+    arg: Vector | Matrix,
+    max_denominator: int,
+) -> Vector | Matrix:
+    """
+    Creates a new instance of the argument with all fraction
+        denominators set to some maximum amount.
+
+    Arguments
+    - arg: The matrix or vector to operate on.
+    - max_denominator: The highest possible denominator (actual may be
+        lower).
+
+    Possible Errors
+    - ZeroDivisionError: If max_denominator is 0.
+    """
+
+    if max_denominator == 0:
+        raise ZeroDivisionError(
+            "maximum denominator must be a nonzero positive integer"
+        )
+    if isinstance(arg, Matrix):
+        return Matrix(
+            (item.limit_denominator(max_denominator) for item in row)
+            for row in arg
+        )
+    else:  # if isinstance(arg, Vector):
+        return Vector(item.limit_denominator(max_denominator) for item in arg)
 
 
 def magnitude(
@@ -458,7 +507,7 @@ def orthogonalize(
                     )
                     for i in range(k)
                 ),
-                start=homogenous_vector(v_len, 0),
+                start=homogenous(v_len, 0),
             )
     except ZeroDivisionError:
         raise LinearDependenceError(

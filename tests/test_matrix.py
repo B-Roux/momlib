@@ -73,15 +73,6 @@ class TestMatrix(unittest.TestCase):
             mat1[2:2, 2:2]
         self.assertEqual(mat1, mat1[:, :])
 
-    def test_limit_denominator(self):
-        for _ in range(10):
-            size = (rand_index(), rand_index())
-            mat1 = rand_mat(*size)
-            mat1_lim = mat1.limit_denominator(10)
-            for i in range(size[0]):
-                for j in range(size[1]):
-                    self.assertLessEqual(mat1_lim[i, j].denominator, 10)
-
     def test_matmul(self):
         mat1 = rand_mat(5, 3)
         mat2 = rand_mat(3, 5)

@@ -167,6 +167,8 @@ class Vector(
         - To calculate the element-wise product of two vectors, use the
             `__mul__` (asterisk) operator.
         """
+        if not isinstance(other, Vector):  # type: ignore
+            return NotImplemented
         if self._length != other._length:
             raise DimensionMismatchError(
                 f"left side length ({self._length}) "
@@ -199,6 +201,12 @@ class Vector(
         - To calculate the dot product of two matrices, use the
             `__matmul__` (at-sign) operator.
         """
+
+        if not isinstance(
+            other,
+            (Vector, int, float, Fraction),
+        ):  # type: ignore
+            return NotImplemented
         return self._elwise_operate(other, True, mul_operator)
 
     def __rmul__(
@@ -221,6 +229,11 @@ class Vector(
         - To calculate the dot product of two matrices, use the
             `__matmul__` (at-sign) operator.
         """
+        if not isinstance(
+            other,
+            (Vector, int, float, Fraction),
+        ):  # type: ignore
+            return NotImplemented
         return self._elwise_operate(other, False, mul_operator)
 
     def __truediv__(
@@ -240,6 +253,11 @@ class Vector(
         - ZeroDivisionError: If `other` is zero, or is a vector that
             contains a zero anywhere.
         """
+        if not isinstance(
+            other,
+            (Vector, int, float, Fraction),
+        ):  # type: ignore
+            return NotImplemented
         return self._elwise_operate(other, True, truediv_operator)
 
     def __rtruediv__(
@@ -260,6 +278,11 @@ class Vector(
         - ZeroDivisionError: If `other` is zero, or is a vector that
             contains a zero anywhere.
         """
+        if not isinstance(
+            other,
+            (Vector, int, float, Fraction),
+        ):  # type: ignore
+            return NotImplemented
         return self._elwise_operate(other, False, truediv_operator)
 
     def __add__(
@@ -277,6 +300,11 @@ class Vector(
         - DimensionMismatchError: If `other` is a Vector and does not
             have the required shape.
         """
+        if not isinstance(
+            other,
+            (Vector, int, float, Fraction),
+        ):  # type: ignore
+            return NotImplemented
         return self._elwise_operate(other, True, add_operator)
 
     def __radd__(
@@ -295,6 +323,11 @@ class Vector(
         - DimensionMismatchError: If `other` is a Vector and does not
             have the required shape.
         """
+        if not isinstance(
+            other,
+            (Vector, int, float, Fraction),
+        ):  # type: ignore
+            return NotImplemented
         return self._elwise_operate(other, False, add_operator)
 
     def __sub__(
@@ -312,6 +345,11 @@ class Vector(
         - DimensionMismatchError: If `other` is a Vector and does not
             have the required shape.
         """
+        if not isinstance(
+            other,
+            (Vector, int, float, Fraction),
+        ):  # type: ignore
+            return NotImplemented
         return self._elwise_operate(other, True, sub_operator)
 
     def __rsub__(
@@ -330,6 +368,11 @@ class Vector(
         - DimensionMismatchError: If `other` is a Vector and does not
             have the required shape.
         """
+        if not isinstance(
+            other,
+            (Vector, int, float, Fraction),
+        ):  # type: ignore
+            return NotImplemented
         return self._elwise_operate(other, False, sub_operator)
 
     def __neg__(
@@ -355,7 +398,7 @@ class Vector(
         - other: The object this vector is to be compared to.
         """
         if not isinstance(other, Vector):
-            return False
+            return NotImplemented
         if self._hash is not None and other._hash is not None:
             if hash(self) != hash(other):
                 return False
@@ -396,26 +439,6 @@ class Vector(
             return Vector(chain(iter(self), iter(other)))
         else:
             return Vector(chain(iter(self), [other]))
-
-    def limit_denominator(
-        self,
-        max_denominator: int,
-    ) -> Vector:
-        """
-        Limits the denominator of all `Fraction` objects in this
-            vector to some upper bound.
-
-        Arguments
-        - max_denominator: The largest allowed denominator.
-
-        Possible Errors
-        - ZeroDivisionError: If `max_denominator` is 0.
-        """
-        if max_denominator == 0:
-            raise ZeroDivisionError("max denominator may not be 0")
-        return Vector(
-            item.limit_denominator(max_denominator) for item in self._data
-        )
 
     # PROPERTIES
 

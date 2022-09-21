@@ -120,24 +120,23 @@ class TestLinalgTools(unittest.TestCase):
         with self.assertRaises(DimensionMismatchError):
             _linalg.distance(rand_vec(3), rand_vec(2))
 
-    def test_homo_matrix(self):
-        mat1 = _linalg.homogenous_matrix(5, 1)
+    def test_homogenous(self):
+        mat1 = _linalg.homogenous((5, 5), 1)
         for i in range(5):
             for j in range(5):
                 self.assertEqual(mat1[i, j], Fraction(1))
-        mat2 = _linalg.homogenous_matrix((2, 6), 1)
+        mat2 = _linalg.homogenous((2, 6), 1)
         for i in range(2):
             for j in range(6):
                 self.assertEqual(mat2[i, j], Fraction(1))
-        mat3 = _linalg.homogenous_matrix(3, 5)
+        mat3 = _linalg.homogenous((3, 3), 5)
         mat4 = Matrix([[5, 5, 5], [5, 5, 5], [5, 5, 5]])
         self.assertEqual(mat3, mat4)
 
-    def test_homo_vector(self):
-        vec1 = _linalg.homogenous_vector(5, 1)
+        vec1 = _linalg.homogenous(5, 1)
         for i in range(5):
             self.assertEqual(vec1[i], 1)
-        vec2 = _linalg.homogenous_vector(3, 5)
+        vec2 = _linalg.homogenous(3, 5)
         vec3 = Vector([5, 5, 5])
         self.assertEqual(vec2, vec3)
 
@@ -192,7 +191,8 @@ class TestLinalgTools(unittest.TestCase):
         self.assertEqual(
             mat1,
             _linalg.matcat(
-                *_linalg.get_vectors(mat1, column_wise=False), column_wise=False
+                *_linalg.get_vectors(mat1, column_wise=False),
+                column_wise=False
             ),
         )
         self.assertEqual(
@@ -207,6 +207,16 @@ class TestLinalgTools(unittest.TestCase):
                 *_linalg.get_vectors(mat1, column_wise=False), column_wise=True
             ),
         )
+
+    def test_limit_denominator(self):
+        max_denom = rand_index(20, 50)
+
+        for row in _linalg.limit_denominator(rand_mat(5, 5), max_denom):
+            for item in row:
+                self.assertLessEqual(item, max_denom)
+
+        for item in _linalg.limit_denominator(rand_vec(5), max_denom):
+            self.assertLessEqual(item, max_denom)
 
     def test_normalize_magnitude(self):
         for _ in range(10):
