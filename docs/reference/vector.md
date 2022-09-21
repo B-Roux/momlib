@@ -7,33 +7,32 @@ Expresses the mathematical notion of a rational-valued Vector in
 `Vector` objects are considered non-mutable, which means that for
     the life of an object it cannot be meaningfully modified[^1].
     Vectors are, therefore, hashable (using
-    `hash(vector\_instance)`).
+    `hash(vector_instance)`).
 
 [^1]: If you need to modify a `Vector`, look into the
-    `vector\_instance.elements` property.
+    `vector_instance.elements` property.
 
 ## Contents
 
-- [\_\_init\_\_](#__init__)
-- [\_\_len\_\_](#__len__)
-- [\_\_getitem\_\_](#__getitem__)
-- [\_\_iter\_\_](#__iter__)
-- [\_\_str\_\_](#__str__)
-- [\_\_repr\_\_](#__repr__)
-- [\_\_matmul\_\_](#__matmul__)
-- [\_\_mul\_\_](#__mul__)
-- [\_\_rmul\_\_](#__rmul__)
-- [\_\_truediv\_\_](#__truediv__)
-- [\_\_rtruediv\_\_](#__rtruediv__)
-- [\_\_add\_\_](#__add__)
-- [\_\_radd\_\_](#__radd__)
-- [\_\_sub\_\_](#__sub__)
-- [\_\_rsub\_\_](#__rsub__)
-- [\_\_neg\_\_](#__neg__)
-- [\_\_eq\_\_](#__eq__)
-- [\_\_hash\_\_](#__hash__)
+- [\\_\\_init\\_\\_](#\_\_init\_\_)
+- [\\_\\_len\\_\\_](#\_\_len\_\_)
+- [\\_\\_getitem\\_\\_](#\_\_getitem\_\_)
+- [\\_\\_iter\\_\\_](#\_\_iter\_\_)
+- [\\_\\_str\\_\\_](#\_\_str\_\_)
+- [\\_\\_repr\\_\\_](#\_\_repr\_\_)
+- [\\_\\_matmul\\_\\_](#\_\_matmul\_\_)
+- [\\_\\_mul\\_\\_](#\_\_mul\_\_)
+- [\\_\\_rmul\\_\\_](#\_\_rmul\_\_)
+- [\\_\\_truediv\\_\\_](#\_\_truediv\_\_)
+- [\\_\\_rtruediv\\_\\_](#\_\_rtruediv\_\_)
+- [\\_\\_add\\_\\_](#\_\_add\_\_)
+- [\\_\\_radd\\_\\_](#\_\_radd\_\_)
+- [\\_\\_sub\\_\\_](#\_\_sub\_\_)
+- [\\_\\_rsub\\_\\_](#\_\_rsub\_\_)
+- [\\_\\_neg\\_\\_](#\_\_neg\_\_)
+- [\\_\\_eq\\_\\_](#\_\_eq\_\_)
+- [\\_\\_hash\\_\\_](#\_\_hash\_\_)
 - [concat](#concat)
-- [limit\_denominator](#limit_denominator)
 
 ---
 
@@ -128,7 +127,7 @@ Possible Errors
 
 Notes
 - To calculate the element-wise product of two vectors, use the
-    `\_\_mul\_\_` (asterisk) operator.
+    `__mul__` (asterisk) operator.
 
 ---
 
@@ -150,7 +149,7 @@ Possible Errors
 
 Notes
 - To calculate the dot product of two matrices, use the
-    `\_\_matmul\_\_` (at-sign) operator.
+    `__matmul__` (at-sign) operator.
 
 ---
 
@@ -173,7 +172,7 @@ Possible Errors
 
 Notes
 - To calculate the dot product of two matrices, use the
-    `\_\_matmul\_\_` (at-sign) operator.
+    `__matmul__` (at-sign) operator.
 
 ---
 
@@ -344,22 +343,5 @@ Arguments
 Possible Errors
 - DimensionMismatchError: If the two vectors have unequal
     lengths.
-
----
-
-# limit\_denominator
-
-```python
-(self, max_denominator: 'int') -> 'Vector'
-```
-
-Limits the denominator of all `Fraction` objects in this
-    vector to some upper bound.
-
-Arguments
-- max\_denominator: The largest allowed denominator.
-
-Possible Errors
-- ZeroDivisionError: If `max\_denominator` is 0.
 
 <!--this file has been automatically generated-->

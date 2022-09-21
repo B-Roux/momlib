@@ -14,20 +14,18 @@ def gen_doc(input: ModuleType | object):
         ):
             contents.append(
                 {
-                    "name": name,
+                    "name": name.replace("_", "\\_"),
                     "sig": str(signature(item)),
                     "doc": cleandoc(
                         item.__doc__ if item.__doc__ is not None else ""
-                    ).replace("_", "\\_"),
+                    ),
                 }
             )
     return (
         # not the best practice for efficiency, but this script does not
         # need to be efficient as it will be run very rarely.
         "\n"
-        + cleandoc(input.__doc__ if input.__doc__ is not None else "").replace(
-            "_", "\\_"
-        )
+        + cleandoc(input.__doc__ if input.__doc__ is not None else "")
         + "\n\n## Contents\n\n"
         + "\n".join(
             "- [" + i["name"].replace("_", "\\_") + f"](#{i['name']})"
@@ -37,7 +35,7 @@ def gen_doc(input: ModuleType | object):
         + "\n\n---\n\n".join(
             (
                 "# "
-                + i["name"].replace("_", "\\_")
+                + i["name"]
                 + "\n\n"
                 + f"```python\n{i['sig']}\n```\n\n{i['doc']}"
             )
