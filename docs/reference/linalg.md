@@ -8,19 +8,19 @@ Provides an assortment of more advanced linear algebra tools to work
 - [cross](#cross)
 - [determinant](#determinant)
 - [distance](#distance)
-- [get\_vectors](#get_vectors)
 - [homogenous](#homogenous)
 - [identity](#identity)
 - [inverse](#inverse)
+- [join\_vectors](#join_vectors)
 - [laplace\_expansion](#laplace_expansion)
 - [limit\_denominator](#limit_denominator)
 - [magnitude](#magnitude)
-- [matcat](#matcat)
 - [matrix\_power](#matrix_power)
 - [normalize](#normalize)
 - [orthogonalize](#orthogonalize)
 - [rank](#rank)
 - [row\_reduce](#row_reduce)
+- [split\_vectors](#split_vectors)
 - [transpose](#transpose)
 
 ---
@@ -85,35 +85,18 @@ Notes
 
 ---
 
-# get\_vectors
-
-```python
-(matrix: 'Matrix', column_wise: 'bool' = True) -> 'Iterable[Vector]'
-```
-
-Lazily gets each row or column from a matrix as a vector.
-
-Arguments
-- matrix: The matrix to separate into vectors.
-- column_wise: Whether to interpret the given matrix as a collection
-    of columns (when true), or a list of rows (when false).
-    Optional, defaults to true.
-
----
-
 # homogenous
 
 ```python
 (shape: 'tuple[int, int] | int', value: 'float | Fraction' = 0) -> 'Vector | Matrix'
 ```
 
-Matrix constructor that creates a matrix of a given shape which has
-    all elements equal to one another.
+Constructor that creates a matrix or vector of a given shape which
+    has all elements equal to one another.
 
 Arguments
-- shape: The row-column shape of the desired matrix. If this is an
-    integer, a square matrix with both sides of the specified length
-    will be returned.
+- shape: The row-column shape of the desired matrix, or length of
+    the desired vector.
 - value: The value with which to fill the matrix.
     Optional, defaults to 0.
 
@@ -149,6 +132,28 @@ Arguments
 Possible Errors
 - RectangularMatrixError: If `matrix` is not a square matrix.
 - LinearDependenceError: If `matrix` is non-invertible.
+
+---
+
+# join\_vectors
+
+```python
+(*vectors: 'Vector', orientation: "Literal['col', 'row']" = 'col') -> 'Matrix'
+```
+
+Concatenates _m_ vectors of dimension _n_ into either an _m_ by _n_
+    matrix, or an _n_ by _m_ matrix.
+
+Arguments
+- *vectors: The vectors to join.
+- orientation: Whether to interpret the given vectors as columns
+    ('col'), or as rows ('row') of the desired matrix.
+    Optional, defaults to 'col'.
+
+Possible Errors
+- ValueError: If no vectors were given.
+- DimensionMismatchError: If not all of the given vectors have the
+    same length.
 
 ---
 
@@ -201,28 +206,6 @@ Arguments
 
 Notes
 - May introduce floating point errors.
-
----
-
-# matcat
-
-```python
-(*vectors: 'Vector', column_wise: 'bool' = True) -> 'Matrix'
-```
-
-Concatenates _m_ vectors of dimension _n_ into either an _m_ by _n_
-    matrix, or an _n_ by _m_ matrix.
-
-Arguments
-- *vectors: The vectors to join.
-- column_wise: Whether to interpret the given vectors as columns
-    (when true), or as rows (when false) of the desired matrix.
-    Optional, defaults to true.
-
-Possible Errors
-- ValueError: If no vectors were given.
-- DimensionMismatchError: If not all of the given vectors have the
-    same length.
 
 ---
 
@@ -318,6 +301,22 @@ Arguments
     Gauss-Jordan elimination, or compute a non-reduced row-echelon
     form by simple Gaussian elimination.
     Optional, defaults to true.
+
+---
+
+# split\_vectors
+
+```python
+(matrix: 'Matrix', orientation: "Literal['col', 'row']" = 'col') -> 'Iterable[Vector]'
+```
+
+Lazily gets each row or column from a matrix as a vector.
+
+Arguments
+- matrix: The matrix to separate into vectors.
+- orientation: Whether to interpret the given matrix as a collection
+    of columns ('col'), or a list of rows ('row').
+    Optional, defaults to 'col'.
 
 ---
 

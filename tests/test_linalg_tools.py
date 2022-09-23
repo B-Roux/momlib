@@ -160,7 +160,7 @@ class TestLinalgTools(unittest.TestCase):
                     pass  # shouldn't happen often, just skip if it does
         with self.assertRaises(LinearDependenceError):
             vec1 = Vector([1, 2, 3])
-            mat2 = _linalg.matcat(vec1, vec1 * 2, vec1 * 3)
+            mat2 = _linalg.join_vectors(vec1, vec1 * 2, vec1 * 3)
             _linalg.inverse(mat2)
         mat3 = Matrix([[-1, 2, 3], [4, -5, 6], [7, 8, -9]])
         mat4 = Matrix(
@@ -172,7 +172,7 @@ class TestLinalgTools(unittest.TestCase):
         )
         self.assertEqual(_linalg.inverse(mat3), mat4)
 
-    def test_join_separate_vectors(self):
+    def test_join_split_vectors(self):
         vec1 = Vector([1, 2, 3])
         vec2 = Vector([4, 5, 6])
         vec3 = Vector([7, 8, 9])
@@ -180,31 +180,35 @@ class TestLinalgTools(unittest.TestCase):
         mat1 = Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
         mat2 = Matrix([[1, 4, 7], [2, 5, 8], [3, 6, 9]])
         self.assertEqual(
-            mat1, _linalg.matcat(vec1, vec2, vec3, column_wise=False)
+            mat1, _linalg.join_vectors(vec1, vec2, vec3, orientation="row")
         )
         self.assertEqual(
-            mat2, _linalg.matcat(vec1, vec2, vec3, column_wise=True)
+            mat2, _linalg.join_vectors(vec1, vec2, vec3, orientation="col")
         )
         with self.assertRaises(DimensionMismatchError):
-            _linalg.matcat(vec1, vec2, vec4)
-        self.assertEqual(mat1, _linalg.matcat(*_linalg.get_vectors(mat1)))
+            _linalg.join_vectors(vec1, vec2, vec4)
+        self.assertEqual(
+            mat1, _linalg.join_vectors(*_linalg.split_vectors(mat1))
+        )
         self.assertEqual(
             mat1,
-            _linalg.matcat(
-                *_linalg.get_vectors(mat1, column_wise=False),
-                column_wise=False
+            _linalg.join_vectors(
+                *_linalg.split_vectors(mat1, orientation="row"),
+                orientation="row"
             ),
         )
         self.assertEqual(
             mat1,
-            _linalg.matcat(
-                *_linalg.get_vectors(mat1, column_wise=True), column_wise=True
+            _linalg.join_vectors(
+                *_linalg.split_vectors(mat1, orientation="col"),
+                orientation="col"
             ),
         )
         self.assertEqual(
             mat2,
-            _linalg.matcat(
-                *_linalg.get_vectors(mat1, column_wise=False), column_wise=True
+            _linalg.join_vectors(
+                *_linalg.split_vectors(mat1, orientation="row"),
+                orientation="col"
             ),
         )
 
@@ -213,10 +217,10 @@ class TestLinalgTools(unittest.TestCase):
 
         for row in _linalg.limit_denominator(rand_mat(5, 5), max_denom):
             for item in row:
-                self.assertLessEqual(item, max_denom)
+                self.assertLessEqual(item.denominator, max_denom)
 
         for item in _linalg.limit_denominator(rand_vec(5), max_denom):
-            self.assertLessEqual(item, max_denom)
+            self.assertLessEqual(item.denominator, max_denom)
 
     def test_normalize_magnitude(self):
         for _ in range(10):

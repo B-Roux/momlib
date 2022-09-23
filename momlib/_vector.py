@@ -5,7 +5,6 @@ Implements the `Vector` class (see `help(Vector)`).
 from __future__ import annotations
 
 from fractions import Fraction
-from itertools import chain
 from operator import (
     mul as mul_operator,
     truediv as truediv_operator,
@@ -419,26 +418,6 @@ class Vector(
         if self._hash is None:
             self._hash = hash(self._data)
         return self._hash
-
-    def concat(
-        self,
-        other: Vector | float | Fraction,
-    ) -> Vector:
-        """
-        Concatenates the elements of this vector with the elements of
-            the `other` vector.
-
-        Arguments
-        - other: The vector to append to this vector.
-
-        Possible Errors
-        - DimensionMismatchError: If the two vectors have unequal
-            lengths.
-        """
-        if isinstance(other, Vector):
-            return Vector(chain(iter(self), iter(other)))
-        else:
-            return Vector(chain(iter(self), [other]))
 
     # PROPERTIES
 

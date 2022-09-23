@@ -54,16 +54,6 @@ class TestMatrix(unittest.TestCase):
         mat1 = rand_mat(2, 3)
         self.assertEqual(mat1.shape, (2, 3))
 
-    def test_cat(self):
-        mat1 = Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-        mat2 = Matrix([[1, 2], [4, 5], [7, 8]])
-        mat3 = Matrix([[3], [6], [9]])
-        self.assertEqual(mat2 | mat3, mat1)
-        mat4 = Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-        mat5 = Matrix([[1, 2, 3], [4, 5, 6]])
-        mat6 = Matrix([[7, 8, 9]])
-        self.assertEqual(mat5.concat(mat6, horizontally=False), mat4)
-
     def test_get_slice(self):
         mat1 = rand_mat(3, 3)
         mat2 = mat1[0:2, 0:2]

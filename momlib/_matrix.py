@@ -462,7 +462,7 @@ class Matrix(
         other: Matrix,
     ) -> Matrix:
         """
-        Concatenates the rows of this matrix with the rows of the
+        Augments the rows of this matrix with the rows of the
             `other` matrix.
 
         Arguments
@@ -474,7 +474,18 @@ class Matrix(
         """
         if not isinstance(other, Matrix):  # type: ignore
             return NotImplemented
-        return self.concat(other, horizontally=True)
+        if self._shape[0] != other._shape[0]:
+            raise DimensionMismatchError(
+                f"left side rows ({self._shape[0]}) "
+                f"do not equal right side rows ({other._shape[0]}), "
+                "cannot augment columns"
+            )
+        return Matrix(
+            (
+                chain(self_row, other_row)
+                for self_row, other_row in zip(self._data, other._data)
+            )
+        )
 
     def __hash__(
         self,
@@ -485,47 +496,6 @@ class Matrix(
         if self._hash is None:
             self._hash = hash(self._data)
         return self._hash
-
-    def concat(
-        self,
-        other: Matrix,
-        horizontally: bool = True,
-    ) -> Matrix:
-        """
-        Concatenates the rows of this matrix with the rows of the
-            `other` matrix.
-
-        Arguments
-        - other: The right-hand side rows to append.
-        - horizontally: Whether to concatenate the matrices horizontally
-            (when true) or vertically (when false).
-            Optional, defaults to true.
-
-        Possible Errors
-        - DimensionMismatchError: If the two matrices have unequal shape
-            dimensions perpendicular to the direction of concatenation.
-        """
-        if horizontally:
-            if self._shape[0] != other._shape[0]:
-                raise DimensionMismatchError(
-                    f"left side rows ({self._shape[0]}) "
-                    f"do not equal right side rows ({other._shape[0]}), "
-                    "cannot augment columns"
-                )
-            return Matrix(
-                (
-                    chain(self_row, other_row)
-                    for self_row, other_row in zip(self._data, other._data)
-                )
-            )
-        else:
-            if self._shape[1] != other._shape[1]:
-                raise DimensionMismatchError(
-                    f"top side columns ({self._shape[0]}) "
-                    f"do not equal bottom side columns ({other._shape[0]}), "
-                    "cannot append rows"
-                )
-            return Matrix(chain(self._data, other._data))
 
     # PROPERTIES
 

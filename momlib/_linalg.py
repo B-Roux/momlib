@@ -7,7 +7,7 @@ from __future__ import annotations
 
 from fractions import Fraction
 from math import sqrt, acos
-from typing import Iterable, overload
+from typing import Iterable, Literal, overload
 from functools import reduce
 from operator import mul as mul_operator
 
@@ -23,21 +23,20 @@ __all__ = (
     "cross",
     "determinant",
     "distance",
-    "get_vectors",
     "homogenous",
     "identity",
     "inverse",
+    "join_vectors",
     "laplace_expansion",
     "limit_denominator",
     "magnitude",
-    "matcat",
     "matrix_power",
     "normalize",
     "orthogonalize",
-    "cross",
     "rank",
     "row_reduce",
     "transpose",
+    "split_vectors",
 )
 
 
@@ -96,7 +95,7 @@ def cross(
             )
     if len(vectors) != v_len - 1:
         raise ValueError("exactly n-1 n-dimensional vectors must be given")
-    matrix = matcat(homogenous(v_len, 1), *vectors, column_wise=False)
+    matrix = join_vectors(homogenous(v_len, 1), *vectors, orientation="row")
     return Vector(
         coefficient * determinant(matrix)
         for matrix, coefficient in laplace_expansion(matrix)
@@ -168,25 +167,6 @@ def distance(
     return sqrt(difference @ difference)
 
 
-def get_vectors(
-    matrix: Matrix,
-    column_wise: bool = True,
-) -> Iterable[Vector]:
-    """
-    Lazily gets each row or column from a matrix as a vector.
-
-    Arguments
-    - matrix: The matrix to separate into vectors.
-    - column_wise: Whether to interpret the given matrix as a collection
-        of columns (when true), or a list of rows (when false).
-        Optional, defaults to true.
-    """
-    if column_wise:
-        return (Vector(col) for col in zip(*iter(matrix)))
-    else:
-        return (Vector(col) for col in matrix)
-
-
 @overload
 def homogenous(
     shape: tuple[int, int],
@@ -208,13 +188,12 @@ def homogenous(
     value: float | Fraction = 0,
 ) -> Vector | Matrix:
     """
-    Matrix constructor that creates a matrix of a given shape which has
-        all elements equal to one another.
+    Constructor that creates a matrix or vector of a given shape which
+        has all elements equal to one another.
 
     Arguments
-    - shape: The row-column shape of the desired matrix. If this is an
-        integer, a square matrix with both sides of the specified length
-        will be returned.
+    - shape: The row-column shape of the desired matrix, or length of
+        the desired vector.
     - value: The value with which to fill the matrix.
         Optional, defaults to 0.
     """
@@ -274,6 +253,40 @@ def inverse(
                 "cannot invert linearly dependent matrices"
             )
     return inversion
+
+
+def join_vectors(
+    *vectors: Vector,
+    orientation: Literal["col", "row"] = "col",
+) -> Matrix:
+    """
+    Concatenates _m_ vectors of dimension _n_ into either an _m_ by _n_
+        matrix, or an _n_ by _m_ matrix.
+
+    Arguments
+    - *vectors: The vectors to join.
+    - orientation: Whether to interpret the given vectors as columns
+        ('col'), or as rows ('row') of the desired matrix.
+        Optional, defaults to 'col'.
+
+    Possible Errors
+    - ValueError: If no vectors were given.
+    - DimensionMismatchError: If not all of the given vectors have the
+        same length.
+    """
+    if len(vectors) <= 0:
+        raise ValueError("at least one vector must be given")
+    v_len = len(vectors[0])
+    for vector in vectors:
+        if len(vector) != v_len:
+            raise DimensionMismatchError(
+                "all vectors must have the same length to be "
+                "joined into a matrix"
+            )
+    if orientation == "col":
+        return Matrix(row for row in zip(*vectors))
+    else:  # if orientation == "row":
+        return Matrix(vectors)
 
 
 def laplace_expansion(
@@ -369,40 +382,6 @@ def magnitude(
     - May introduce floating point errors.
     """
     return sqrt(sum((n * n for n in vector)))
-
-
-def matcat(
-    *vectors: Vector,
-    column_wise: bool = True,
-) -> Matrix:
-    """
-    Concatenates _m_ vectors of dimension _n_ into either an _m_ by _n_
-        matrix, or an _n_ by _m_ matrix.
-
-    Arguments
-    - *vectors: The vectors to join.
-    - column_wise: Whether to interpret the given vectors as columns
-        (when true), or as rows (when false) of the desired matrix.
-        Optional, defaults to true.
-
-    Possible Errors
-    - ValueError: If no vectors were given.
-    - DimensionMismatchError: If not all of the given vectors have the
-        same length.
-    """
-    if len(vectors) <= 0:
-        raise ValueError("at least one vector must be given")
-    v_len = len(vectors[0])
-    for vector in vectors:
-        if len(vector) != v_len:
-            raise DimensionMismatchError(
-                "all vectors must have the same length to be "
-                "joined into a matrix"
-            )
-    if column_wise:
-        return Matrix(row for row in zip(*vectors))
-    else:
-        return Matrix(vectors)
 
 
 def matrix_power(
@@ -555,6 +534,25 @@ def row_reduce(
         return _rref(matrix)
     else:
         return _ref(matrix)[0]
+
+
+def split_vectors(
+    matrix: Matrix,
+    orientation: Literal["col", "row"] = "col",
+) -> Iterable[Vector]:
+    """
+    Lazily gets each row or column from a matrix as a vector.
+
+    Arguments
+    - matrix: The matrix to separate into vectors.
+    - orientation: Whether to interpret the given matrix as a collection
+        of columns ('col'), or a list of rows ('row').
+        Optional, defaults to 'col'.
+    """
+    if orientation == "col":
+        return (Vector(col) for col in zip(*iter(matrix)))
+    else:  # if orientation == "row":
+        return (Vector(col) for col in matrix)
 
 
 def transpose(

@@ -33,7 +33,6 @@ Expresses the mathematical notion of a rational-valued matrix in
 - [\_\_eq\_\_](#__eq__)
 - [\_\_or\_\_](#__or__)
 - [\_\_hash\_\_](#__hash__)
-- [concat](#concat)
 
 ---
 
@@ -329,7 +328,7 @@ Arguments
 (self, other: 'Matrix') -> 'Matrix'
 ```
 
-Concatenates the rows of this matrix with the rows of the
+Augments the rows of this matrix with the rows of the
     `other` matrix.
 
 Arguments
@@ -348,26 +347,5 @@ Possible Errors
 ```
 
 Returns the hash of this matrix.
-
----
-
-# concat
-
-```python
-(self, other: 'Matrix', horizontally: 'bool' = True) -> 'Matrix'
-```
-
-Concatenates the rows of this matrix with the rows of the
-    `other` matrix.
-
-Arguments
-- other: The right-hand side rows to append.
-- horizontally: Whether to concatenate the matrices horizontally
-    (when true) or vertically (when false).
-    Optional, defaults to true.
-
-Possible Errors
-- DimensionMismatchError: If the two matrices have unequal shape
-    dimensions perpendicular to the direction of concatenation.
 
 <!--this file has been automatically generated-->

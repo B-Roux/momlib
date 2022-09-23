@@ -42,12 +42,6 @@ class TestVector(unittest.TestCase):
             vec2 = Vector(vec1.elements)
             self.assertEqual(hash(vec1), hash(vec2))
 
-    def test_cat(self):
-        vec = Vector([1, 2, 3, 4, 5, 6, 7, 8, 9, 0])
-        vec1 = Vector([1, 2, 3, 4, 5, 6])
-        vec2 = Vector([7, 8, 9, 0])
-        self.assertEqual(vec, vec1.concat(vec2))
-
     def test_dot(self):
         vec1 = Vector([0, 0, 0])
         vec2 = rand_vec(3)

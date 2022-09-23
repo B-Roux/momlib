@@ -32,7 +32,6 @@ Expresses the mathematical notion of a rational-valued Vector in
 - [\_\_neg\_\_](#__neg__)
 - [\_\_eq\_\_](#__eq__)
 - [\_\_hash\_\_](#__hash__)
-- [concat](#concat)
 
 ---
 
@@ -325,23 +324,5 @@ Arguments
 ```
 
 Returns the hash of this vector.
-
----
-
-# concat
-
-```python
-(self, other: 'Vector | float | Fraction') -> 'Vector'
-```
-
-Concatenates the elements of this vector with the elements of
-    the `other` vector.
-
-Arguments
-- other: The vector to append to this vector.
-
-Possible Errors
-- DimensionMismatchError: If the two vectors have unequal
-    lengths.
 
 <!--this file has been automatically generated-->

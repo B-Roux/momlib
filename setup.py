@@ -5,7 +5,7 @@ with open("./README.md", "r") as f:
 
 setup(
     name="momlib",
-    version="0.0.5",
+    version="0.0.6",
     url="https://momlib.opensource.bgeroux.com/",
     author="B. Roux",
     description="Mathematical Object Manipulation Library",
