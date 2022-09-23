@@ -247,7 +247,7 @@ class TestLinalgTools(unittest.TestCase):
         )
         for _ in range(10):
             size = (rand_index(), rand_index())
-            mat2 = _linalg.row_reduce(rand_mat(*size), rref=True)
+            mat2 = _linalg.row_reduce(rand_mat(*size), "rref")
             pivot = 0
             for row in range(size[0]):
                 if pivot >= size[1]:

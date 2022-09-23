@@ -265,8 +265,8 @@ def join_vectors(
 
     Arguments
     - *vectors: The vectors to join.
-    - orientation: Whether to interpret the given vectors as columns
-        ('col'), or as rows ('row') of the desired matrix.
+    - orientation: Whether to interpret the given vectors as columns, or
+        as rows of the desired matrix.
         Optional, defaults to 'col'.
 
     Possible Errors
@@ -505,7 +505,7 @@ def rank(
     Arguments
     - matrix: The matrix the rank is to be calculated from.
     """
-    matrix_ref = row_reduce(matrix, False)
+    matrix_ref = row_reduce(matrix, "ref")
     rank_count = 0
     for i in range(min(matrix_ref.shape)):
         if matrix_ref[i, i] == 0:
@@ -517,7 +517,7 @@ def rank(
 
 def row_reduce(
     matrix: Matrix,
-    rref: bool = True,
+    form: Literal["rref", "ref"] = "rref",
 ) -> Matrix:
     """
     Computes a row-echelon or reduced row-echelon form matrix by row
@@ -525,14 +525,14 @@ def row_reduce(
 
     Arguments
     - matrix: The matrix to row-reduce.
-    - rref: Whether to compute the reduced row-echelon form by
+    - form: Whether to compute the reduced row-echelon form by
         Gauss-Jordan elimination, or compute a non-reduced row-echelon
         form by simple Gaussian elimination.
-        Optional, defaults to true.
+        Optional, defaults to 'rref'.
     """
-    if rref:
+    if form == "rref":
         return _rref(matrix)
-    else:
+    else:  # if form == "ref":
         return _ref(matrix)[0]
 
 
@@ -546,7 +546,7 @@ def split_vectors(
     Arguments
     - matrix: The matrix to separate into vectors.
     - orientation: Whether to interpret the given matrix as a collection
-        of columns ('col'), or a list of rows ('row').
+        of columns, or a list of rows.
         Optional, defaults to 'col'.
     """
     if orientation == "col":
