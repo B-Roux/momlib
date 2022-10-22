@@ -59,7 +59,7 @@ If these hashes don't match the ones installed from pip, remove the files from y
 
 # News
 
-- The old domain for this project (which I won't name to avoid any confusion) is not being used anymore. The official home of this project is now `momlib.opensource.bgeroux.com`.
+- The old domain for this project (which I won't name to avoid any confusion) is not being used anymore. The official home of this project is now `momlib.projects.b-roux.com`.
 
 - The graph theory submodule is being indefinitely removed. I didn't like how out of place it felt in its previous implementation - perhaps in the future it will be reintroduced, but for the time being I think it is healthier for the project to address a more narrow scope of problems.
 
