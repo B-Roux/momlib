@@ -33,21 +33,21 @@ This package can be installed from the PyPI release:
 python -m pip install momlib
 ```
 
-# Verifying (Version 0.0.6)
+# Verifying (Version 0.0.7)
 
 | Tarball | Hash |
 |:--:|:--|
-| SHA256 | `abdd15ee46d8436f829604b9faae8c828ed2e338ab3599255c3dd9f647e6e7fe` |
-| MD5 | `fd50fb059edeb918253d828c50adc599` |
-| BLAKE2-256 | `4c5af56f949128c5538e299ac22cd9c64caa4fbd966ec3c235c5e822447738b9` |
+| SHA256 | `ba1c50834bfb7490461dbbaa320ac01f1c622607df6a622136d7ffebe9385946` |
+| MD5 | `b5f7ab0447611741eed9ec6b251c6b1f` |
+| BLAKE2-256 | `e0bef5668b501224f5a83c791f64d70e2a179f28f02dde2cb5f109b173198dfe` |
 
 &nbsp;
 
 | Wheel | Hash |
 |:--:|:--|
-| SHA256 | `5d6885895b84efe917b09881639ab3f3462e486be1417cf72e72165ad9d5d4f3` |
-| MD5 | `2b949bedf6403cb523b3410bf510f850` |
-| BLAKE2-256 | `42de45fabb25e7e33f820a79f5ee2b6d9689fe588a75fb26ad6e407a5e5666dd` |
+| SHA256 | `4ee2b8b39b0256f7e4f93df20ebd1c39cca7ecd679807210b27a7997976c1885` |
+| MD5 | `c23df7d9dfc3ef28eec72aae18a3b226` |
+| BLAKE2-256 | `da5da2beb2acc8096375f7b0e46f8f81185b1c7bcc1982cd4c4e1a2be22673aa` |
 
 If these hashes don't match the ones installed from pip, remove the files from your device immediately and open [an issue on GitHub](https://github.com/B-Roux/momlib/issues). You are responsible for reviewing any content you download and ensuring that it meets your security and safety expectations.
 
