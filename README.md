@@ -1,4 +1,4 @@
-[![Python: 3.10](https://img.shields.io/badge/Python-3.10-blue.svg)](https://www.python.org/)
+[![Python: 3.10, 3.11](https://img.shields.io/badge/Python-3.10-blue.svg)](https://www.python.org/)
 [![Systems: Windows, Mac, Linux](https://img.shields.io/badge/Systems-Windows%2C%20Mac%2C%20Linux-blue.svg)]()
 [![License: BSD 3-Clause](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![Code style: black](https://img.shields.io/badge/Style-Black%2C%20PEP--8-blue.svg)](https://github.com/psf/black)
