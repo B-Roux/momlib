@@ -22,7 +22,7 @@ python -m pip install momlib
 ```
 
 # Documentation
-The main home of the documentation for this package is at [momlib.projects.b-roux.com](https://momlib.projects.b-roux.com/). You can also use the `help(...)` function in-code to get an in-depth look at any part of this library.
+The main home of the documentation for this package is at [momlib.pages.b-roux.com](https://momlib.pages.b-roux.com/). You can also use the `help(...)` function in-code to get an in-depth look at any part of this library.
 
 # Licensing
 The official (and only!) licensing agreement for using this project can be found in [the licensing file](./LICENSE.md). It's pretty simple: you can privately or commercially modify, distribute or use this software - for free (gratis *and* libre) - under the exact terms detailed by this license. Be aware that I am not liable for any use of this software, nor do I provide it with any warrantees or guarantees.
