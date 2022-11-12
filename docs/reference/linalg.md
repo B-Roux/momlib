@@ -146,8 +146,8 @@ Concatenates _m_ vectors of dimension _n_ into either an _m_ by _n_
 
 Arguments
 - *vectors: The vectors to join.
-- orientation: Whether to interpret the given vectors as columns
-    ('col'), or as rows ('row') of the desired matrix.
+- orientation: Whether to interpret the given vectors as columns, or
+    as rows of the desired matrix.
     Optional, defaults to 'col'.
 
 Possible Errors
@@ -289,7 +289,7 @@ Arguments
 # row\_reduce
 
 ```python
-(matrix: 'Matrix', rref: 'bool' = True) -> 'Matrix'
+(matrix: 'Matrix', form: "Literal['rref', 'ref']" = 'rref') -> 'Matrix'
 ```
 
 Computes a row-echelon or reduced row-echelon form matrix by row
@@ -297,10 +297,10 @@ Computes a row-echelon or reduced row-echelon form matrix by row
 
 Arguments
 - matrix: The matrix to row-reduce.
-- rref: Whether to compute the reduced row-echelon form by
+- form: Whether to compute the reduced row-echelon form by
     Gauss-Jordan elimination, or compute a non-reduced row-echelon
     form by simple Gaussian elimination.
-    Optional, defaults to true.
+    Optional, defaults to 'rref'.
 
 ---
 
@@ -315,7 +315,7 @@ Lazily gets each row or column from a matrix as a vector.
 Arguments
 - matrix: The matrix to separate into vectors.
 - orientation: Whether to interpret the given matrix as a collection
-    of columns ('col'), or a list of rows ('row').
+    of columns, or a list of rows.
     Optional, defaults to 'col'.
 
 ---
