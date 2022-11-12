@@ -6,7 +6,7 @@ with open("./README.md", "r") as f:
 setup(
     name="momlib",
     version="0.0.7",
-    url="https://momlib.projects.b-roux.com//",
+    url="https://momlib.pages.b-roux.com//",
     author="B. Roux",
     description="Mathematical Object Manipulation Library",
     long_description=long_description,
