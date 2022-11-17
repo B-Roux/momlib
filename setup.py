@@ -1,17 +1,13 @@
 from setuptools import setup
-from .momlib import __version__ as version
 
 with open("./README.md", "r") as f:
     long_description = f.read()
 
 setup(
     name="momlib",
-    version=version,
+    version="0.0.8",
     author="B. Roux",
-    package_dir={"": "momlib"},
-    packages=[
-        "momlib",
-    ],
+    packages=["momlib"],
     description="Mathematical Object Manipulation Library",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -26,6 +22,7 @@ setup(
         "matrix",
         "mathematics",
     ],
+    python_requires=">=3.10",
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
