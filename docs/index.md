@@ -37,17 +37,17 @@ python -m pip install momlib
 
 | Tarball | Hash |
 |:--:|:--|
-| SHA256 | `ba1c50834bfb7490461dbbaa320ac01f1c622607df6a622136d7ffebe9385946` |
-| MD5 | `b5f7ab0447611741eed9ec6b251c6b1f` |
-| BLAKE2-256 | `e0bef5668b501224f5a83c791f64d70e2a179f28f02dde2cb5f109b173198dfe` |
+| SHA256 | `b75f6595a4c5eca1170883e766d1488bef17305773418df42e121ede1460154f` |
+| MD5 | `0f3b341dcfe84e6da566961f4b44b61d` |
+| BLAKE2-256 | `9a7dbde49eae80accaace593a4f4cf730ef91df8f92cb29133d0bbb5b9d71b27` |
 
 &nbsp;
 
 | Wheel | Hash |
 |:--:|:--|
-| SHA256 | `4ee2b8b39b0256f7e4f93df20ebd1c39cca7ecd679807210b27a7997976c1885` |
-| MD5 | `c23df7d9dfc3ef28eec72aae18a3b226` |
-| BLAKE2-256 | `da5da2beb2acc8096375f7b0e46f8f81185b1c7bcc1982cd4c4e1a2be22673aa` |
+| SHA256 | `f8c33240d1a5cf9601b96758aa44d64cb4592a01b73a3151951d635962127a9f` |
+| MD5 | `ef965d2c0128f6751f534bfd1af835e6` |
+| BLAKE2-256 | `78962b8b7f98ba780cd3d622c843196dd46ca9560a996ded5d844f35f3ff31cf` |
 
 If these hashes don't match the ones installed from pip, remove the files from your device immediately and open [an issue on GitHub](https://github.com/B-Roux/momlib/issues). You are responsible for reviewing any content you download and ensuring that it meets your security and safety expectations.
 
