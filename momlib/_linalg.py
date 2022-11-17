@@ -463,6 +463,10 @@ def orthogonalize(
     - The returned vectors are not normalized, they must be manually
         normalized if an orthonormal basis is sought.
     """
+
+    # Video reference I used:
+    # https://www.youtube.com/watch?v=zHbfZWZJTGc
+
     if len(vectors) <= 0:
         raise ValueError("exactly n n-dimensional vectors must be given")
     v_len = len(vectors[0])
@@ -583,6 +587,11 @@ def _ref(
     Arguments
     - matrix: The matrix to row-reduce.
     """
+
+    # Adapted from:
+    # https://en.wikipedia.org/wiki/Gaussian_elimination
+    # #Pseudocode
+
     list_mat = matrix.elements
     lm_shape = matrix.shape
     row_count = lm_shape[0]
@@ -630,6 +639,11 @@ def _rref(
     Arguments
     - matrix: The matrix to row-reduce.
     """
+
+    # Adapted from:
+    # https://en.wikipedia.org/wiki/Row_echelon_form
+    # #Pseudocode_for_reduced_row_echelon_form
+
     list_mat = matrix.elements
     lm_shape = matrix.shape
     lead = 0
