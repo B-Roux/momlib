@@ -1,12 +1,13 @@
 from setuptools import setup
+from .momlib import __version__ as version
 
 with open("./README.md", "r") as f:
     long_description = f.read()
 
 setup(
     name="momlib",
-    version="0.0.7",
-    url="https://momlib.pages.b-roux.com//",
+    version=version,
+    url="https://momlib.pages.b-roux.com/",
     author="B. Roux",
     description="Mathematical Object Manipulation Library",
     long_description=long_description,
@@ -27,6 +28,6 @@ setup(
         "License :: OSI Approved :: BSD License",
         "Operating System :: OS Independent",
         "Programming Language :: Python :: 3.10",
-        "Programming Language :: Python :: 3.11"
+        "Programming Language :: Python :: 3.11",
     ],
 )

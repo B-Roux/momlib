@@ -78,3 +78,5 @@ __all__ = (
     "transpose",
     "split_vectors",
 )
+
+__version__ = "0.0.8"
