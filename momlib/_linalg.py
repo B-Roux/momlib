@@ -404,16 +404,17 @@ def matrix_power(
         raise RectangularMatrixError(
             "only square matrices may be raised to a power"
         )
-    multi = None
-    if power < 0:
-        multi = inverse(matrix)
-        power = -power
-    else:
-        multi = matrix
-    operand = identity(side_len)
-    for _ in range(power):
-        operand @= multi
-    return operand
+
+    def fast_pow(identity_: Matrix, matrix_: Matrix, power_: int) -> Matrix:
+        if power_ == 0:
+            return identity_
+        half_power, remainder = divmod(power_, 2)
+        result = fast_pow(identity_, matrix_, half_power)
+        result @= result
+        return matrix_ @ result if remainder != 0 else result
+
+    identity_mat = identity(side_len)
+    return fast_pow(identity_mat, matrix, power)
 
 
 def normalize(
