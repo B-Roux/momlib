@@ -5,13 +5,13 @@ with open("./README.md", "r") as f:
 
 setup(
     name="momlib",
-    version="0.0.8",
+    version="0.0.9",
     author="B. Roux",
     packages=["momlib"],
     description="Mathematical Object Manipulation Library",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://momlib.pages.b-roux.com/",
+    url="https://github.com/B-Roux/momlib",
     project_urls={
         "Bug Tracker": "https://github.com/B-Roux/momlib/issues",
     },
