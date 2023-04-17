@@ -3,7 +3,7 @@
 [![License: BSD 3-Clause](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![Code style: black](https://img.shields.io/badge/Style-Black%2C%20PEP--8-blue.svg)](https://github.com/psf/black)
 
-[![Unit Tests](https://github.com/B-Roux/momlib/actions/workflows/tests.yml/badge.svg)](https://github.com/B-Roux/momlib/actions/workflows/tests.yml)
+[![Unit Tests](https://github.com/B-Roux/momlib/actions/workflows/tests.yml/badge.svg?branch=master)](https://github.com/B-Roux/momlib/actions/workflows/tests.yml)
 
 # Mathematical Object Manipulation Library
 
@@ -22,10 +22,7 @@ python -m pip install momlib
 ```
 
 # Documentation
-The main home of the documentation for this package is at [momlib.pages.b-roux.com](https://momlib.pages.b-roux.com/). You can also use the `help(...)` function in-code to get an in-depth look at any part of this library.
+I'm working on it! For now, feel free to browse the "docs" directory
 
 # Licensing
 The official (and only!) licensing agreement for using this project can be found in [the licensing file](./LICENSE.md). It's pretty simple: you can privately or commercially modify, distribute or use this software - for free (gratis *and* libre) - under the exact terms detailed by this license. Be aware that I am not liable for any use of this software, nor do I provide it with any warrantees or guarantees.
-
-# Code Standards and Design
-I aim to keep my code well-formatted and to a tight standard. While this standard is constantly evolving and may get outdated often, I attempt to capture its most recent form in [this document](./design/code_conventions.md).
