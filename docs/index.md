@@ -33,21 +33,21 @@ This package can be installed from the PyPI release:
 python -m pip install momlib
 ```
 
-# Verifying (Version 0.0.7)
+# Verifying (Version 0.0.9)
 
-| Tarball | Hash |
-|:--:|:--|
-| SHA256 | `b75f6595a4c5eca1170883e766d1488bef17305773418df42e121ede1460154f` |
-| MD5 | `0f3b341dcfe84e6da566961f4b44b61d` |
-| BLAKE2-256 | `9a7dbde49eae80accaace593a4f4cf730ef91df8f92cb29133d0bbb5b9d71b27` |
+**Tarball (\*.tar.gz):**
+```
+SHA256: c37aec0311d90b804b21b5031ed015727bba76375dcdbdd5d2e316d0cedfb09f
+MD5: 4a1e75066e82a99260f4192232b24f47
+BLAKE2-256: e24c80f8f01d6142a8888a5371378837f0343927af18fce450cbdf7a69b948d6
+```
 
-&nbsp;
-
-| Wheel | Hash |
-|:--:|:--|
-| SHA256 | `f8c33240d1a5cf9601b96758aa44d64cb4592a01b73a3151951d635962127a9f` |
-| MD5 | `ef965d2c0128f6751f534bfd1af835e6` |
-| BLAKE2-256 | `78962b8b7f98ba780cd3d622c843196dd46ca9560a996ded5d844f35f3ff31cf` |
+**Wheel (\*.whl):**
+```
+SHA256: 786ae9469d1f531749051ab8d4e99de88617540664230269ee0d99d8f3764ca6
+MD5: 5d9609ee2aa36dcdc5428de6e859e80b
+BLAKE2-256: b811198c30a1ca92d7f0ca30411eff6bac60e259b5a9af6727d82ada264f78c1
+```
 
 If these hashes don't match the ones installed from pip, remove the files from your device immediately and open [an issue on GitHub](https://github.com/B-Roux/momlib/issues). You are responsible for reviewing any content you download and ensuring that it meets your security and safety expectations.
 
@@ -59,15 +59,13 @@ If these hashes don't match the ones installed from pip, remove the files from y
 
 # News
 
-- The old domain for this project (which I won't name to avoid any confusion) is not being used anymore. The official home of this project is now `momlib.pages.b-roux.com`.
-
 - The graph theory submodule is being indefinitely removed. I didn't like how out of place it felt in its previous implementation - perhaps in the future it will be reintroduced, but for the time being I think it is healthier for the project to address a more narrow scope of problems.
 
 # License
 
 BSD 3-Clause License
 
-Copyright (c) 2022, B. Roux
+Copyright (c) 2023, B. Roux
 
 All rights reserved.
 
